@@ -1,0 +1,88 @@
+.number{
+  width: 25%;
+  height: 80%;
+  border-right: 1px solid #e8e8e8;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 17px;
+
+}
+.number-div{
+  width: 100%;
+  text-align: center;
+  margin-bottom: -25px;
+}
+.number-div2{
+  width: 100%;
+  text-align: center;
+  margin-top: -25px;
+}
+
+.detail{
+  font-size: 14px;
+  font-weight: 500;
+  width: 73%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  flex-wrap: wrap;
+}
+.detail-div{
+  display: flex;
+  width: 100%;
+  text-align: left;
+  padding-left: 10px;
+  flex-wrap: wrap;
+}
+
+.detail-div2{
+  display: flex;
+  width: 100%;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.sum{
+  display: flex;
+  align-items: flex-start;
+  width: 42%;
+}
+.date{
+  display: flex;
+  align-items: right;
+  width: 58%;
+}
+
+
+.category{
+  margin-bottom: 5px;
+  width: 100%;
+}
+.card{
+    width: 100%;
+    height: 120px;
+    color: #40a9ff;
+    font-family: "微软雅黑";
+    font-weight: 550;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-sum{
+  background-image: url('/images/icons/sum.png');
+  width:16px;
+  height: 16px;
+}
+
+.icon-date{
+  background-image: url('/images/icons/date.png');
+  width:16px;
+  height: 16px;
+}

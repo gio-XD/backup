@@ -1,0 +1,24 @@
+.login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginpage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+
+.loginbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  padding-bottom: 8px;
+}
