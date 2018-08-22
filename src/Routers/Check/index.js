@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import { Route,withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import {NavBar,WhiteSpace,Tabs} from 'antd-mobile';
+import {NavBar,WhiteSpace} from 'antd-mobile';
 import TabPage from './TabPage';
+import CheckDetail from './CheckDetail';
 import './style.css';
 
 class Check extends Component{
@@ -21,7 +22,7 @@ class Check extends Component{
             <div className='check-tab-container'>
               <WhiteSpace/>
               <Route path='/checksearch' exact  render={()=>(<TabPage {...this.props}/>)}/>
-              <Route path='/checksearch/:id'   render={()=>(<div>123</div>)}/>
+              <Route path='/checksearch/:id'   render={()=>(<CheckDetail {...this.props}/>)}/>
             </div>
       </div>
     )

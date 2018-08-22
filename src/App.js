@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path='/' exact render={() => (<Redirect from='/' to='/login'/>)}/>
+          <Route path='/' exact render={() => (<Redirect from='/' to='/index'/>)}/>
           <Route path='/login' exact render={() => (<Login/>)}/>
           <Route path='/index' exact render={() => (<Index/>)}/>
           <Route path='/assetcreate'  component={Assetcreate}/>

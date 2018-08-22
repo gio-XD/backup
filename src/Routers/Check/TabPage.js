@@ -1,5 +1,5 @@
 import React,{Component,Fragment} from 'react';
-import {WhiteSpace,Tabs,SegmentedControl} from 'antd-mobile';
+import {Tabs,SegmentedControl} from 'antd-mobile';
 import CheckingTab from './CheckingTab';
 import CheckedTab from './CheckedTab';
 import './style.css';
@@ -23,7 +23,7 @@ class TabPage extends Component{
     }
     return (
       <Fragment>
-        
+
         <Tabs tabs={tabs}
           page={tabPage}
           useOnPan={false}
