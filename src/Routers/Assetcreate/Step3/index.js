@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {List,Button} from 'antd-mobile';
+import {Button} from 'antd-mobile';
 import { connect } from 'react-redux';
 import '../style.css'
 
@@ -23,7 +23,7 @@ const listData = [
   {key:'direction',text:'使用方向'},
   {key:'remark',text:'备注'}
 ]
-
+// 12313213
 class Step3 extends Component{
   onSubmit = () => {
     this.props.history.push('/index')

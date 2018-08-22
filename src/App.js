@@ -8,6 +8,7 @@ import Assetquery from './Routers/Assetlist'
 import Assetcreate from './Routers/Assetcreate'
 import SearchAsset from './Routers/Assetcreate/Step1/SearchAsset.js'
 import Assetdetail from './Routers/Assetdetail'
+import Check from './Routers/Check'
 import Login from './Routers/Login'
 
 
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path='/index' exact render={() => (<Index/>)}/>
           <Route path='/assetcreate'  component={Assetcreate}/>
           <Route path='/searchasset' exact  component={SearchAsset}/>
+          <Route path='/checksearch'   component={Check}/>
           <Route path='/assetlist' exact component={Assetquery}/>
           <Route path='/asset/:id'  component={Assetdetail}/>
           <Route path='/index/:menu'  component={Menu}/>

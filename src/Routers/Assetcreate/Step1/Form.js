@@ -62,6 +62,12 @@ class Form extends Component{
           var date = new Date(mydate);
           return date.getFullYear() + '-' + zeroFixed(date.getMonth() + 1) + '-' + zeroFixed(date.getDate())
         }
+
+        function formatMoney (num) {
+            num = parseFloat(num);
+            console.log(num);
+            return (num.toFixed(2) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+        }
     return(
       <Fragment>
         <div className='createform'>
@@ -114,7 +120,7 @@ class Form extends Component{
                     placeholder="请输入单价"
                     {...getFieldProps('unitPrice',{
                       onChange:function(value){this.setState({unitPrice:value})}.bind(this),
-                      initialValue:formData.unitPrice?formData.unitPrice:null
+                      initialValue:formData.unitPrice? formData.unitPrice :null
                     })}
                     type='money'
                      moneyKeyboardAlign='left'
@@ -136,13 +142,11 @@ class Form extends Component{
                     placeholder="请输入金额"
                     onFocus={( )=>{document.activeElement.blur()}}
                     {...getFieldProps('sum',{
-                      initialValue:this.state?(this.state.unitPrice * this.state.count ? this.state.unitPrice * this.state.count : null) : null
+                      initialValue:this.state?(this.state.unitPrice * this.state.count ? formatMoney(this.state.unitPrice * this.state.count) : null) : null
                     })}
                   >*金额</InputItem>
                   <InputItem
                     clear
-                    type='money'
-                    moneyKeyboardAlign='left'
                     defaultValue=""
                     placeholder="请输入发票号码"
                     extra={<div className='scanicon'></div>}

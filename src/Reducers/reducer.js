@@ -11,7 +11,6 @@ function saveAsset(state = [],action){
 
 
 function saveForm(state = {},action){
-  console.log(state);
   if(action.type === 'saveForm'){
     return  {...state,...action.payload};
   }else{

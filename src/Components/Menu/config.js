@@ -7,7 +7,7 @@ export const config = [
   {
     icon:'/images/menu/期待.png',
     text:'验收查询',
-    path:'验收查询',
+    path:'checksearch',
   },
   {
     icon:'/images/menu/期待.png',

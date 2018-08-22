@@ -14,7 +14,7 @@ class Form extends Component{
     const {history,dispatch,form} = this.props;
       form.validateFields((error, value) => {
       console.log(error, value);
-      if(/*!error*/  1 ===1){
+      if(/*!error*/  1>0){
         dispatch(MyActions.saveForm(value));
         history.push('/assetcreate/step3');
       }

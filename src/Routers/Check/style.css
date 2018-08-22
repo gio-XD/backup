@@ -1,0 +1,17 @@
+.check-tab-container{
+  height: 90%;
+  width: 100%;
+  position: fixed;
+  padding:0 16px 0 16px;
+  /* overflow-y: scroll; */
+  background-color: #f5f5f5;
+}
+
+.check-tab-content{
+  display: flex;;
+  align-items:flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+    height: 100%;
+
+}
