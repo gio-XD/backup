@@ -7,8 +7,8 @@ class Content extends Component{
 
   render (){
     return (
-        <List className='list'>
-          <List.Item className='listitem'><div className='leftcontent'>供应商</div><div className='rightcontent'>xxxx</div></List.Item>
+        <List className='list' >
+          <List.Item className='listitem'><div className='leftcontent'>供应商</div><div className='rightcontent'>笔记本电脑</div></List.Item>
           <List.Item className='listitem'><div className='leftcontent'>数量：</div><div className='rightcontent'>1  </div></List.Item>
         </List>
     )

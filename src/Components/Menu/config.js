@@ -17,7 +17,7 @@ export const config = [
   {
     icon:'/images/menu/期待.png',
     text:'资产调拨',
-    path:'资产调拨',
+    path:'assetallocation',
   },
   {
     icon:'/images/menu/期待.png',
