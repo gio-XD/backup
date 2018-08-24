@@ -7,3 +7,50 @@ height: 90%;
 .sticky-list .sticky-container .am-list-line { padding-right: 0; }
 .sticky-list .sticky-container .am-list-line .am-list-content { padding-top: 0; padding-bottom: 0; }
 .sticky-list .sticky-container .sticky { padding: 7px 15px; transform: none; }
+
+
+.allocation-checkbox-list{
+  padding-left: 15px;
+  height: 64px;
+}
+
+.allocation-checkbox-list .am-list-content{
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.allocation-checkbox{
+  width: 10%;
+}
+
+
+.allocation-checkbox .am-checkbox {
+  margin-right: 15px;
+}
+
+
+.allocation-checkbox-list .text {
+  display: flex;
+  align-items: center;
+  width: 85%;
+    font-size: 15px;
+    opacity: 0.7;
+}
+
+.allocation-checkbox-list .leftbody {
+  border-right: 2px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  width: 40%;
+  flex-wrap: wrap;
+}
+
+.allocation-checkbox-list .rightbody {
+  padding-left: 4%;
+  display: flex;
+  align-items: center;
+  width: 60%;
+  flex-wrap: wrap;
+}

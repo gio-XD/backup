@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import {NavBar,WhiteSpace,ListView} from 'antd-mobile';
+import {NavBar} from 'antd-mobile';
 import Footer from './Footer'
 import Content from './Content'
 

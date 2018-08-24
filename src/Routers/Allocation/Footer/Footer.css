@@ -27,15 +27,6 @@
     margin-left: 4%;
 }
 
-.my-radio .am-radio {
-  border: 1px solid #ccc;
-  border-radius: 50%;
+.my-radio .am-checkbox {
   margin-right: 5px;
-  width: 24px;
-  height: 24px;
-}
-
-.my-radio .am-radio-inner:after {
-  height: 20px;
-  width: 10px;
 }
