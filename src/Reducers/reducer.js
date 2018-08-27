@@ -18,9 +18,18 @@ function saveForm(state = {},action){
   }
 }
 
+function saveAllocationData(state = [],action){
+  if(action.type === 'saveAllocationData'){
+    return  action.payload;
+  }else{
+    return state;
+  }
+}
+
 const reducer = combineReducers({
   assetList:saveAsset,
-  formData:saveForm
+  formData:saveForm,
+  allocationData:saveAllocationData
 });
 
 

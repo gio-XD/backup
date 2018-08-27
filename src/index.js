@@ -10,7 +10,8 @@ import { Provider } from 'react-redux';
 
 
 const state = {
-  assetList:[]
+  assetList:[],
+  allocation:[]
 }
 const store = createStore(reducer,state,applyMiddleware(ReduxThunk));
 

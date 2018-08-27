@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {NavBar} from 'antd-mobile';

@@ -39,3 +39,170 @@ export function query(word,companyid,type){
 
     }
 }
+
+export function HandleAllocationSelect(payload,type){
+const {data,child,check,title} = payload;
+let data_temp = [...data]
+if(title){
+  data_temp.map((d)=>{
+    if(child && d.title === title){
+      d.children.map(c => {
+        if(c.name === child)
+        c.check= check;
+
+      })
+    }
+    else if(d.title === title){
+      d.check=check
+      if( d.children){
+        d.children.forEach((c)=>{
+          c.check=check
+        })
+      }
+    }
+    if(d.children)
+    　if(JSON.stringify(d.children).indexOf('false') > -1){
+      d.check = false;
+    }else {
+      d.check = true;
+    }
+  })
+}else {
+  var e = eval('/'+!check+'/g')
+   data_temp=JSON.parse(JSON.stringify(data).replace(e,check))
+}
+return (dispatch) => {
+    dispatch({type:'saveAllocationData',payload:data_temp});
+  }
+}
+
+
+
+export function fetchAllocationData(){
+  const data = [
+    {
+      title: '2018-08-23',
+      check:false,
+      children:[
+        {
+          name:'aaaaa',
+          check:false
+        },
+        {
+          name:'bbbbb',
+          check:false
+        },
+        {
+          name:'ccccc',
+          check:false
+        }
+      ]
+    },
+    {
+      title: '2018-08-10',
+      check:false,
+      children:[
+        {
+          name:'1111',
+          check:false
+        },
+        {
+          name:'2222',
+          check:false
+        },
+        {
+          name:'3333',
+          check:false
+        }
+      ]
+    },
+    {
+      title: '2018-08-14',
+      check:false,
+      children:[
+        {
+          name:'ee',
+          check:false
+        },
+        {
+          name:'ff',
+          check:false
+        },
+        {
+          name:'dd',
+          check:false
+        }
+      ]
+    },
+    {
+      title: '2018-07-14',
+      check:false,
+      children:[
+        {
+          name:'ee',
+          check:false
+        },
+        {
+          name:'ff',
+          check:false
+        },
+        {
+          name:'dd',
+          check:false
+        }
+      ]
+    },
+    {
+      title: '2018-11-14',
+      check:false,
+      children:[
+        {
+          name:'ee',
+          check:false
+        },
+        {
+          name:'ff',
+          check:false
+        },
+        {
+          name:'dd',
+          check:false
+        }
+      ]
+    },
+    {
+      title: '2018-10-14',
+      check:false,
+      children:[
+        {
+          name:'ee',
+          check:false
+        },
+        {
+          name:'ff',
+          check:false
+        },
+        {
+          name:'dd',
+          check:false
+        }
+      ]
+    },{
+      title: '2018-6-14',
+      check:false,
+      children:[
+        {
+          name:'ee',
+          check:false
+        },
+        {
+          name:'ff',
+          check:false
+        },
+      ]
+    },
+  ];
+  return (dispatch) => {
+      dispatch({type:'saveAllocationData',payload:data});
+    }
+}
