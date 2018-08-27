@@ -29,7 +29,7 @@ class App extends Component {
           <Route path='/index' exact render={() => (<Index/>)}/>
           <Route path='/assetcreate'  component={Assetcreate}/>
           <Route path='/searchasset' exact  component={SearchAsset}/>
-          <Route path='/assetallocation' exact  component={Allocation}/>
+          <Route path='/assetallocation'  component={Allocation}/>
           <Route path='/checksearch'   component={Check}/>
           <Route path='/assetlist' exact component={Assetquery}/>
           <Route path='/asset/:id'  component={Assetdetail}/>

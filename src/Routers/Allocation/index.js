@@ -1,32 +1,29 @@
 import React,{Component} from 'react';
-import { withRouter } from 'react-router';
+import { Route,Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {NavBar} from 'antd-mobile';
-import Footer from './Footer'
-import Content from './Content'
+import Allocation from './Allocation';
+import AllocationDetail from './AllocationDetail'
 import * as MyActions from '../../Actions/asyncActions'
 
 
-class Allocation extends Component{
+class Index extends Component{
   componentWillMount(){
     this.props.dispatch(MyActions.fetchAllocationData())
   }
 
   render(){
-    const selectAll = (a) => {
-      console.log('select all',a);
-      this.props.dispatch(MyActions.HandleAllocationSelect({data:this.props.data,check:a},'saveAllocationData'))
-    }
+    console.log(this.props);
     return(
       <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0,background:'#f5f5f5'} }>
         <NavBar
           className='NavBar'
           mode="dark"
           leftContent={<span onClick={()=> this.props.history.goBack()}>{'<返回'}</span>}
-          >调拨入账</NavBar>
-        <Content {...this.props}/>
-        <Footer onSelect={selectAll}/>
-
+          >{this.props.location.pathname === "/assetallocation/list" ?'调拨入账' : '调拨详情'}</NavBar>
+          <Route path='/assetallocation' exact render={()=>(<Redirect to='/assetallocation/list'/>)}/>
+          <Route path='/assetallocation/list'  render={()=>(<Allocation {...this.props}/>)}/>
+          <Route path='/assetallocation/completedetail'  render={()=>(<AllocationDetail {...this.props}/>)}/>
       </div>
     )
   }
@@ -35,4 +32,4 @@ class Allocation extends Component{
 
 
 
-export default withRouter(connect(state=>{return{data:state.allocationData}})(Allocation));
+export default withRouter(connect(state=>{return{data:state.allocationData}})(Index));

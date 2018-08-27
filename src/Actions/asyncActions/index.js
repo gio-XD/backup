@@ -44,7 +44,7 @@ export function HandleAllocationSelect(payload,type){
 const {data,child,check,title} = payload;
 let data_temp = [...data]
 if(title){
-  data_temp.map((d)=>{
+   data_temp.map((d)=>{
     if(child && d.title === title){
       d.children.map(c => {
         if(c.name === child)

@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
 import {ListView,List,Checkbox} from 'antd-mobile';
-import { StickyContainer, Sticky } from 'react-sticky';
 import ReactDOM from 'react-dom';
 import './Content.css';
 import * as MyActions from '../../../Actions/asyncActions'
 
-const CheckboxItem = Checkbox.CheckboxItem;
 const AgreeItem = Checkbox.AgreeItem;
 
 function MyBody(props) {
@@ -119,38 +117,7 @@ class Content extends Component{
     }
 
     render() {
-      console.log(this);
-      const onSelect = (check,value,child) => {
-        this.props.data.map((d)=>{
-          if(child && d.title === value){
-            d.children.map(c => {
-              if(c.name === child)
-              c.check= check;
 
-              console.log(c.check);
-            })
-          }
-          else if(d.title === value){
-            d.check=check
-            if( d.children){
-              d.children.forEach((c)=>{
-                c.check=check
-              })
-            }
-          }
-
-          // if(d.children)
-          // 　if(JSON.stringify(d.children).indexOf('false') > -1){
-          //   d.check = false;
-          // }else {
-          //   d.check = true;
-          // }
-        })
-
-        this.setState({
-          aaa:1
-        })
-      }
       const separator = (sectionID, rowID) => (
         <div
           key={`${sectionID}-${rowID}`}
