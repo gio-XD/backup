@@ -6,7 +6,7 @@ import Rejected from './TabPages/Rejected';
 import './style.css';
 
 
-class Mine extends Component{
+class Audit extends Component{
 
 
   render(){
@@ -24,7 +24,7 @@ class Mine extends Component{
            <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
            <Icon key="1" type="ellipsis" />,
          ]}
-          >我发起的</NavBar>
+          >待我审核</NavBar>
         <Tabs tabs={tabs}
           tabBarTextStyle={{fontSize:'17px'}}
           initialPage={'1'}
@@ -44,4 +44,4 @@ class Mine extends Component{
 }
 
 
-export default Mine
+export default Audit

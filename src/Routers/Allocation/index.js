@@ -13,7 +13,6 @@ class Index extends Component{
   }
 
   render(){
-    console.log(this.props);
     return(
       <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0,background:'#f5f5f5'} }>
         <NavBar

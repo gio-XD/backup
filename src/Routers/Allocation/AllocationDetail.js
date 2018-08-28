@@ -73,7 +73,7 @@ class Form extends Component{
                     clear
                     placeholder="请输入规格型号"
                     {...getFieldProps('type',{
-                      initialValue:'张三'
+                      initialValue:'型号A'
                       // onChange:function(a){console.log('123213',a)},
                     })}
                   >保管人</InputItem>
@@ -89,7 +89,7 @@ class Form extends Component{
                     <InputItem
                       clear
                       placeholder="请选择存放地点"
-                      {...getFieldProps('property',{
+                      {...getFieldProps('keepPlace',{
                         initialValue:'A'
                       })}
                       onFocus={( )=>{document.activeElement.blur()}}

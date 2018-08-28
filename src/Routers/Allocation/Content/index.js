@@ -82,7 +82,6 @@ class Content extends Component{
       }, 600);
     }
 
-    // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
     // componentWillReceiveProps(nextProps) {
     //   console.log(nextProps);
     //   if (nextProps.data !== this.props.data) {
@@ -210,7 +209,7 @@ class Content extends Component{
             overflow: 'auto',
           }}
           pageSize={4}
-         onScroll={() => { console.log('scroll',this.props.data); }}
+         onScroll={() => { console.log('scroll'); }}
          //scrollRenderAheadDistance={500}
           //onEndReached={this.onEndReached}
           //onEndReachedThreshold={10}

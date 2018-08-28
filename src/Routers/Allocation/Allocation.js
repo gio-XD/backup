@@ -11,7 +11,6 @@ class Allocation extends Component{
 
   render(){
     const selectAll = (a) => {
-      console.log('select all',a);
       this.props.dispatch(MyActions.HandleAllocationSelect({data:this.props.data,check:a},'saveAllocationData'))
     }
     return(

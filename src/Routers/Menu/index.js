@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {TabBar} from 'antd-mobile';
 import Menu from '../../Components/Menu/Menu';
-import Mine from '../../Components/Mine'
+import Mine from '../../Components/Mine';
+import Audit from '../../Components/Audit'
 import { HashRouter as Router } from "react-router-dom";
 // import { Switch, Route } from 'react-router'
 
@@ -60,7 +61,7 @@ class Index extends Component {
                        />}>
               <div>
                 <Mine/>
-                
+
               </div>
               </TabBar.Item>
               <TabBar.Item
@@ -83,7 +84,7 @@ class Index extends Component {
                           background: 'url(/images/tab/审核_.png) center center /  21px 21px no-repeat' }}
                         />}>
                <div>
-                 <div>待我审核</div>
+                 <Audit/>
                </div>
                </TabBar.Item>
               <TabBar.Item

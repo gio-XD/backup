@@ -6,7 +6,6 @@ import './Footer.css';
 class Footer extends Component{
 
   render(){
-    console.log(this.props);
     return(
       <div className='allocation-footer'>
         <div className='radio-container' ><Checkbox className="my-radio" onChange={(a)=>this.props.onSelect(a.target.checked)} >全选</Checkbox></div>
