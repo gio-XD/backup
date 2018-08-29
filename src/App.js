@@ -10,7 +10,8 @@ import SearchAsset from './Routers/Assetcreate/Step1/SearchAsset.js';
 import Assetdetail from './Routers/Assetdetail';
 import Check from './Routers/Check';
 import Login from './Routers/Login';
-import Allocation from './Routers/Allocation'
+import Allocation from './Routers/Allocation';
+import AuditDetail from './Components/Audit/AuditDetail';
 
 const Menu = (({match}) => (
   <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0,background:'white'} }>
@@ -30,9 +31,10 @@ class App extends Component {
           <Route path='/assetcreate'  component={Assetcreate}/>
           <Route path='/searchasset' exact  component={SearchAsset}/>
           <Route path='/assetallocation'  component={Allocation}/>
+          <Route path='/audit/detail/:id'  component={AuditDetail}/>
           <Route path='/checksearch'   component={Check}/>
           <Route path='/assetlist' exact component={Assetquery}/>
-          <Route path='/asset/:id'  component={Assetdetail}/>
+          <Route path='/asset/:id'   component={Assetdetail}/>
           <Route path='/index/:menu'  component={Menu}/>
         </Switch>
       </Router>

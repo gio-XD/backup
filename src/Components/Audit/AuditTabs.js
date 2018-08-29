@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import {Tabs,NavBar,Icon,Button} from 'antd-mobile';
+import {Tabs} from 'antd-mobile';
 import Launch from './TabPages/Launch';
 import Completed from './TabPages/Completed';
 import Rejected from './TabPages/Rejected';
-import {withRouter } from 'react-router';
 import './style.css';
 
 
-class Mine extends Component{
+class AuditTabs extends Component{
 
 
   render(){
@@ -17,15 +16,7 @@ class Mine extends Component{
       { title: '已退回', sub: '3' },
     ];
     return(
-      <div className='minepage'>
-        <NavBar
-          className='NavBar'
-          mode="light"
-          rightContent={[
-           <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-           <Icon key="1" type="ellipsis" />,
-         ]}
-          >我发起的</NavBar>
+
         <Tabs tabs={tabs}
           tabBarTextStyle={{fontSize:'17px'}}
           initialPage={'1'}
@@ -37,12 +28,9 @@ class Mine extends Component{
           <Completed {...this.props}/>
           <Rejected {...this.props}/>
         </Tabs>
-          {/* <Button className="refresh" onClick={()=>console.log('refresh')}/> */}
-
-      </div>
     )
   }
 }
 
 
-export default withRouter(Mine)
+export default AuditTabs

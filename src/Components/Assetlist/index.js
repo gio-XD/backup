@@ -9,6 +9,7 @@ import './style.css'
 class Index extends Component{
   render(){
     const {data} = this.props;
+    console.log(data);
     return(
         <div>
           <WhiteSpace/>
