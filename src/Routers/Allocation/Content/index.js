@@ -2,9 +2,11 @@ import React,{Component} from 'react';
 import {ListView,List,Checkbox} from 'antd-mobile';
 import ReactDOM from 'react-dom';
 import './Content.css';
-import * as MyActions from '../../../Actions/asyncActions'
+import * as MyActions from '../../../Actions/asyncActions';
+import {data,data2} from '../../../mock/mock.js';
 
 const AgreeItem = Checkbox.AgreeItem;
+
 
 function MyBody(props) {
   return (
@@ -15,17 +17,18 @@ function MyBody(props) {
 }
 
 
-const NUM_SECTIONS = 8;
+// const NUM_SECTIONS = 1;
 const NUM_ROWS_PER_SECTION = 1;
 let pageIndex = 0;
 
 const dataBlobs = {};
 let sectionIDs = [];
 let rowIDs = [];
-function genData(pIndex = 0) {
+function genData(NUM_SECTIONS=1,pIndex = 0) {
   for (let i = 0; i < NUM_SECTIONS; i++) {
     const ii = (pIndex * NUM_SECTIONS) + i;
-    const sectionName = `Section ${ii}`;
+    let sectionName = `Section ${ii}`;
+
     sectionIDs.push(sectionName);
     dataBlobs[sectionName] = sectionName;
     rowIDs[ii] = [];
@@ -52,6 +55,7 @@ class Content extends Component{
         getSectionHeaderData: getSectionData,
         rowHasChanged: (row1, row2) => row1 !== row2,
         sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+        NUM_SECTIONS:props.data.length
       });
 
       this.state = {
@@ -62,8 +66,8 @@ class Content extends Component{
     }
 
     componentDidMount() {
+      console.log(this.props);
       const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-
       setTimeout(() => {
         genData();
         if(sectionIDs.length !== rowIDs.length){
@@ -74,6 +78,7 @@ class Content extends Component{
         }else {
           console.log('same');
         }
+        console.log(dataBlobs, sectionIDs, rowIDs);
         this.setState({
           dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
           isLoading: false,
@@ -83,18 +88,26 @@ class Content extends Component{
     }
 
     // componentWillReceiveProps(nextProps) {
-    //   console.log(nextProps);
     //   if (nextProps.data !== this.props.data) {
+    //     console.log('45645454564s',nextProps);
     //     const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-    //     genData();
-    //     this.setState({
-    //       dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.data),
-    //       isLoading: false,
-    //       height: hei,
-    //     });
-    //     // this.setState({
-    //     //   dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.dataSource),
-    //     // });
+    //     setTimeout(() => {
+    //       genData();
+    //       if(sectionIDs.length !== rowIDs.length){
+    //         console.log(sectionIDs,rowIDs);
+    //         sectionIDs=[];
+    //         rowIDs=[];
+    //         genData();
+    //         }else {
+    //           console.log('same');
+    //         }
+    //       console.log(dataBlobs, sectionIDs, rowIDs);
+    //       this.setState({
+    //         dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
+    //         isLoading: false,
+    //         height: hei,
+    //       });
+    //     }, 600);
     //   }
     // }
 
@@ -107,7 +120,7 @@ class Content extends Component{
       console.log('reach end', event);
       this.setState({ isLoading: true });
       setTimeout(() => {
-        genData(++pageIndex);
+        genData(this.props.data.length,++pageIndex);
         this.setState({
           dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
           isLoading: false,
@@ -116,7 +129,6 @@ class Content extends Component{
     }
 
     render() {
-
       const separator = (sectionID, rowID) => (
         <div
           key={`${sectionID}-${rowID}`}
@@ -130,6 +142,7 @@ class Content extends Component{
       );
       let index = this.props.data.length - 1;
       const row = (rowData, sectionID, rowID) => {
+        // console.log('rowData',rowData, 'sectionID',sectionID, 'rowID',rowID);
         if (index < 0) {
           index = this.props.data.length - 1;
         }
@@ -154,34 +167,22 @@ class Content extends Component{
                         {
                         check:a.target.checked,
                         title:obj.title,
-                        child:child.name,
+                        child:child.id,
                         data:this.props.data
                       },
                       'saveAllocationData'
                     ))}
                        checked={child.check}/>
-                      <div className='text' onClick={()=>{this.props.history.push({pathname:`/asset/1`,state: {text:"资产详情",data:{
-                        id:11,
-                        category:11,
-                        department:11,
-                        sum:11,
-                        payDate:11,
-                        assetName:11,
-                        count:11,
-                        keeper:11,
-                        type:11,
-                        source:11,
-                        remark:11
-                      } }})}}>
+                      <div className='text' onClick={()=>{this.props.history.push({pathname:`/asset/${child.id}`,state: {text:"资产详情",data:child }})}}>
                         {/* {child} */}
                         <div className='leftbody'>
-                          <div style={{width:'100%',textAlign:'center'}}>20170233</div>
+                          <div style={{width:'100%',textAlign:'center'}}>{child.id}</div>
                           <div style={{width:'100%',textAlign:'center'}}>固定资产</div>
                         </div>
                         <div className='rightbody '>
-                          <div style={{width:'100%'}}>资产类别：{child.name}</div>
+                          <div style={{width:'100%'}}>资产类别：{child.category}</div>
                           <div style={{width:'100%'}}>
-                            <span>￥5000</span>
+                            <span>￥{child.sum}</span>
                             <span style={{position:'relative',left:'70px',top:'8px',fontSize:'12px',opacity:'0.5'}}>已入库</span>
                           </div>
                         </div>
@@ -200,7 +201,6 @@ class Content extends Component{
           renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
             {this.state.isLoading ? 'Loading...' : 'Loaded'}
           </div>)}
-
           renderBodyComponent={() => <MyBody />}
           renderRow={row}
           renderSeparator={separator}
@@ -210,9 +210,9 @@ class Content extends Component{
           }}
           pageSize={4}
          onScroll={() => { console.log('scroll'); }}
-         //scrollRenderAheadDistance={500}
-          //onEndReached={this.onEndReached}
-          //onEndReachedThreshold={10}
+         // scrollRenderAheadDistance={500}
+         //  onEndReached={this.onEndReached}
+         //  onEndReachedThreshold={10}
         />
       );
     }

@@ -7,7 +7,6 @@ import './style.css'
 
 // const data = Array.from(new Array(10)).map((_,i)=>i);
 class Index extends Component{
-  //......
   render(){
     const {data} = this.props;
     console.log(data);

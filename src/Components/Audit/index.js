@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {NavBar,Icon,Button} from 'antd-mobile';
+import {NavBar,Icon} from 'antd-mobile';
 import AuditTabs from './AuditTabs'
 import {withRouter } from 'react-router';
 import './style.css';

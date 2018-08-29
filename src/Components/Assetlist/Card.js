@@ -6,7 +6,6 @@ import './style.css'
 class Mycard extends Component{
   render(){
     const {data,noWhiteBlank} = this.props;
-    console.log(data);
     return(
       <div onClick={()=>this.props.history.push({pathname:`/asset/${data.id}`,state: {text:"资产详情",data:data }})}>
         {noWhiteBlank === true ? null : <WhiteSpace size='lg'/>}
