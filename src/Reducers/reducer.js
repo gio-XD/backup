@@ -20,6 +20,7 @@ function saveForm(state = {},action){
 
 function saveAllocationData(state = [],action){
   if(action.type === 'saveAllocationData'){
+    console.log(action.payload);
     return  action.payload;
   }else{
     return state;

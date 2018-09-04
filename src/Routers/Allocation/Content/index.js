@@ -3,10 +3,8 @@ import {ListView,List,Checkbox} from 'antd-mobile';
 import ReactDOM from 'react-dom';
 import './Content.css';
 import * as MyActions from '../../../Actions/asyncActions';
-import {data,data2} from '../../../mock/mock.js';
 
 const AgreeItem = Checkbox.AgreeItem;
-
 
 function MyBody(props) {
   return (
@@ -21,28 +19,27 @@ function MyBody(props) {
 const NUM_ROWS_PER_SECTION = 1;
 let pageIndex = 0;
 
-const dataBlobs = {};
-let sectionIDs = [];
-let rowIDs = [];
-function genData(NUM_SECTIONS=1,pIndex = 0) {
-  for (let i = 0; i < NUM_SECTIONS; i++) {
-    const ii = (pIndex * NUM_SECTIONS) + i;
-    let sectionName = `Section ${ii}`;
+function genData(ds, listData) {
+  console.log(ds);
+  const dataBlob = ds._dataBlob ? ds._dataBlob : {}
+  // let dataBlob={...dataBlob}
+  const sectionIDs = [];
+  const rowIDs = [];
+  listData.forEach((item, index) => {
+    sectionIDs.push(JSON.stringify({title:item.title,check:item.check}));
+    // dataBlob[item.title] = item.title;
+    rowIDs[index] = [];
 
-    sectionIDs.push(sectionName);
-    dataBlobs[sectionName] = sectionName;
-    rowIDs[ii] = [];
+    item.children.forEach((jj) => {
+      rowIDs[index].push(jj.id);
+      dataBlob[jj.id] = jj;
+      // console.log(dataBlob[jj.id]);
+    });
+  });
+    return ds.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs);
 
-    for (let jj = 0; jj < NUM_ROWS_PER_SECTION; jj++) {
-      // console.log("ii",ii,"jj",jj);
-      const rowName = `S${ii}, R${jj}`;
-      rowIDs[ii].push(rowName);
-      dataBlobs[rowName] = rowName;
-    }
-  }
-  sectionIDs = [...sectionIDs];
-  rowIDs = [...rowIDs];
 }
+
 
 class Content extends Component{
   constructor(props) {
@@ -53,9 +50,8 @@ class Content extends Component{
       const dataSource = new ListView.DataSource({
         getRowData,
         getSectionHeaderData: getSectionData,
-        rowHasChanged: (row1, row2) => row1 !== row2,
+        rowHasChanged: (row1, row2) =>{ console.log(row1 !== row2); return row1 !== row2},
         sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-        NUM_SECTIONS:props.data.length
       });
 
       this.state = {
@@ -65,51 +61,21 @@ class Content extends Component{
       };
     }
 
-    componentDidMount() {
-      console.log(this.props);
-      const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-      setTimeout(() => {
-        genData();
-        if(sectionIDs.length !== rowIDs.length){
-          console.log('different');
-          sectionIDs=[];
-          rowIDs=[];
-          genData();
-        }else {
-          console.log('same');
-        }
-        console.log(dataBlobs, sectionIDs, rowIDs);
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-          isLoading: false,
-          height: hei,
-        });
-      }, 600);
-    }
 
-    // componentWillReceiveProps(nextProps) {
-    //   if (nextProps.data !== this.props.data) {
-    //     console.log('45645454564s',nextProps);
-    //     const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-    //     setTimeout(() => {
-    //       genData();
-    //       if(sectionIDs.length !== rowIDs.length){
-    //         console.log(sectionIDs,rowIDs);
-    //         sectionIDs=[];
-    //         rowIDs=[];
-    //         genData();
-    //         }else {
-    //           console.log('same');
-    //         }
-    //       console.log(dataBlobs, sectionIDs, rowIDs);
-    //       this.setState({
-    //         dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-    //         isLoading: false,
-    //         height: hei,
-    //       });
-    //     }, 600);
-    //   }
-    // }
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.data !== this.props.data) {
+        // console.log(nextProps.data);
+        let data = [...nextProps.data]
+        const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
+        setTimeout(() => {
+          this.setState({
+            dataSource: genData(this.state.dataSource, data),
+            isLoading: false,
+            height: hei,
+          });
+        }, 5000);
+      }
+    }
 
     onEndReached = (event) => {
       // load new data
@@ -122,78 +88,53 @@ class Content extends Component{
       setTimeout(() => {
         genData(this.props.data.length,++pageIndex);
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
+          dataSource: this.state.dataSource.cloneWithRowsAndSections(this.props.data),
           isLoading: false,
         });
-      }, 1000);
+      }, 400);
     }
 
     render() {
-      const separator = (sectionID, rowID) => (
-        <div
-          key={`${sectionID}-${rowID}`}
-          style={{
-            backgroundColor: '#F5F5F9',
-            height: 8,
-            borderTop: '1px solid #ECECED',
-            borderBottom: '1px solid #ECECED',
-          }}
-        />
-      );
-      let index = this.props.data.length - 1;
+      // console.log(this.state.dataSource);
       const row = (rowData, sectionID, rowID) => {
         // console.log('rowData',rowData, 'sectionID',sectionID, 'rowID',rowID);
-        if (index < 0) {
-          index = this.props.data.length - 1;
-        }
-        const obj = this.props.data[index--];
+        // let data_temp=this.props.data.find(item => item.title === JSON.parse(sectionID).title)
+        // let rowData_temp = data_temp.children.find(item => item.id === rowID )
+        // console.log(rowData_temp);
         return (
-          <div key={rowID} style={{ padding: '0 15px' }}>
-            <div
-              style={{
-                lineHeight: '50px',
-                // color: '#888',
-                fontSize: 18,
-                // borderBottom: '1px solid #F6F6F6',
-              }}
-            ><AgreeItem style={{marginLeft:0}} onChange={(a)=>this.props.dispatch(MyActions.HandleAllocationSelect({check:a.target.checked,title:obj.title,data:this.props.data},'saveAllocationData'))} checked={obj.check} >{obj.title}</AgreeItem></div>
-                <List>
-                  {obj.children?(obj.children.map((child,i) =>
-                    <List.Item
-                      key={i}
-                      className='allocation-checkbox-list'
-                      >
-                      <Checkbox className="allocation-checkbox" onChange={(a)=>this.props.dispatch(MyActions.HandleAllocationSelect(
-                        {
-                        check:a.target.checked,
-                        title:obj.title,
-                        child:child.id,
-                        data:this.props.data
-                      },
-                      'saveAllocationData'
-                    ))}
-                       checked={child.check}/>
-                      <div className='text' onClick={()=>{this.props.history.push({pathname:`/asset/${child.id}`,state: {text:"资产详情",data:child }})}}>
-                        {/* {child} */}
-                        <div className='leftbody'>
-                          <div style={{width:'100%',textAlign:'center'}}>{child.id}</div>
-                          <div style={{width:'100%',textAlign:'center'}}>固定资产</div>
-                        </div>
-                        <div className='rightbody '>
-                          <div style={{width:'100%'}}>资产类别：{child.category}</div>
-                          <div style={{width:'100%'}}>
-                            <span>￥{child.sum}</span>
-                            <span style={{position:'relative',left:'70px',top:'8px',fontSize:'12px',opacity:'0.5'}}>已入库</span>
+          <div key={rowID} >
+                      <List.Item
+                        key={rowData.id}
+                        className='allocation-checkbox-list'
+                        >
+                        <Checkbox className="allocation-checkbox" onChange={(a)=>this.props.dispatch(MyActions.HandleAllocationSelect(
+                          {
+                          check:a.target.checked,
+                          title:JSON.parse(sectionID).title,
+                          child:rowData.id,
+                          data:this.props.data
+                        },
+                        'saveAllocationData'
+                      ))}
+                         checked={rowData.check}/>
+                        <div className='text' onClick={()=>{this.props.history.push({pathname:`/asset/${rowData.id}`,state: {text:"资产详情",data:rowData }})}}>
+                          {/* {child} */}
+                          <div className='leftbody'>
+                            <div style={{width:'100%',textAlign:'center'}}>{rowData.id}</div>
+                            <div style={{width:'100%',textAlign:'center'}}>固定资产</div>
+                          </div>
+                          <div className='rightbody '>
+                            <div style={{width:'100%'}}>资产类别：{rowData.category}</div>
+                            <div style={{width:'100%'}}>
+                              <span>￥{rowData.sum}</span>
+                              <span style={{position:'relative',left:'70px',top:'8px',fontSize:'12px',opacity:'0.5'}}>已入库</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </List.Item> ))
-                     : null }
-                </List>
+                      </List.Item>
           </div>
         );
       };
-
       return (
         <ListView
           ref={el => this.lv = el}
@@ -202,13 +143,16 @@ class Content extends Component{
             {this.state.isLoading ? 'Loading...' : 'Loaded'}
           </div>)}
           renderBodyComponent={() => <MyBody />}
+          renderSectionHeader={(_,sectionID) => (
+            <AgreeItem  style={{marginLeft:0}} >{JSON.parse(sectionID).title}</AgreeItem>
+          )
+          }
           renderRow={row}
-          renderSeparator={separator}
           style={{
             height: this.state.height,
             overflow: 'auto',
           }}
-          pageSize={4}
+          pageSize={1}
          onScroll={() => { console.log('scroll'); }}
          // scrollRenderAheadDistance={500}
          //  onEndReached={this.onEndReached}

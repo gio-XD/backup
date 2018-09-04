@@ -23,6 +23,8 @@ height: 90%;
 
 .allocation-checkbox{
   width: 10%;
+  position: relative;
+  left: 15px;
 }
 
 
