@@ -5,9 +5,9 @@ import * as MyActions from '../../Actions/asyncActions'
 
 
 class Allocation extends Component{
-  componentWillMount(){
-    this.props.dispatch(MyActions.fetchAllocationData())
-  }
+  // componentWillMount(){
+  //   this.props.dispatch(MyActions.fetchAllocationData())
+  // }
 
   render(){
     const selectAll = (a) => {

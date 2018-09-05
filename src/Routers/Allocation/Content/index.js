@@ -20,7 +20,7 @@ const NUM_ROWS_PER_SECTION = 1;
 let pageIndex = 0;
 
 function genData(ds, listData) {
-  console.log(ds);
+  console.log(listData);
   const dataBlob = ds._dataBlob ? ds._dataBlob : {}
   // let dataBlob={...dataBlob}
   const sectionIDs = [];
@@ -46,16 +46,16 @@ class Content extends Component{
       super(props);
       const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
       const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
-
+      console.log(123,this.props.data);
       const dataSource = new ListView.DataSource({
         getRowData,
         getSectionHeaderData: getSectionData,
-        rowHasChanged: (row1, row2) =>{ console.log(row1 !== row2); return row1 !== row2},
+        rowHasChanged: (row1, row2) =>{/* console.log(row1 !== row2);*/ return /*row1 !== row2*/ true}, //为true时listview重新渲染row组件
         sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
       });
 
       this.state = {
-        dataSource,
+        dataSource:genData(dataSource,this.props.data),
         isLoading: true,
         height: document.documentElement.clientHeight * 3 / 4,
       };
@@ -67,35 +67,33 @@ class Content extends Component{
         // console.log(nextProps.data);
         let data = [...nextProps.data]
         const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-        setTimeout(() => {
+        // setTimeout(() => {
           this.setState({
             dataSource: genData(this.state.dataSource, data),
             isLoading: false,
             height: hei,
           });
-        }, 5000);
+        // }, 100);
       }
     }
 
     onEndReached = (event) => {
       // load new data
       // hasMore: from backend data, indicates whether it is the last page, here is false
-      if (this.state.isLoading && !this.state.hasMore) {
-        return;
-      }
+      // if (this.state.isLoading && !this.state.hasMore) {
+      //   return;
+      // }
       console.log('reach end', event);
       this.setState({ isLoading: true });
       setTimeout(() => {
-        genData(this.props.data.length,++pageIndex);
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRowsAndSections(this.props.data),
+          dataSource: genData(this.state.dataSource, this.props.data),
           isLoading: false,
         });
       }, 400);
     }
 
     render() {
-      // console.log(this.state.dataSource);
       const row = (rowData, sectionID, rowID) => {
         // console.log('rowData',rowData, 'sectionID',sectionID, 'rowID',rowID);
         // let data_temp=this.props.data.find(item => item.title === JSON.parse(sectionID).title)
@@ -144,7 +142,20 @@ class Content extends Component{
           </div>)}
           renderBodyComponent={() => <MyBody />}
           renderSectionHeader={(_,sectionID) => (
-            <AgreeItem  style={{marginLeft:0}} >{JSON.parse(sectionID).title}</AgreeItem>
+            <AgreeItem
+              checked={JSON.parse(sectionID).check}
+              style={{marginLeft:0}}
+              onClick={(a)=>this.props.dispatch(MyActions.HandleAllocationSelect(
+                {
+                check:a.target.checked,
+                title:JSON.parse(sectionID).title,
+                data:this.props.data
+              },
+              'saveAllocationData'
+            ))}
+              >
+                {JSON.parse(sectionID).title}
+              </AgreeItem>
           )
           }
           renderRow={row}
@@ -154,9 +165,9 @@ class Content extends Component{
           }}
           pageSize={1}
          onScroll={() => { console.log('scroll'); }}
-         // scrollRenderAheadDistance={500}
-         //  onEndReached={this.onEndReached}
-         //  onEndReachedThreshold={10}
+          scrollRenderAheadDistance={50}
+          onEndReached={this.onEndReached}
+          onEndReachedThreshold={10}
         />
       );
     }

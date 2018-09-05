@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {TabBar} from 'antd-mobile';
 import Menu from '../../Components/Menu/Menu';
 import Mine from '../../Components/Mine';
-import Audit from '../../Components/Audit'
+import { connect } from 'react-redux';
+import Audit from '../../Components/Audit';
 import { HashRouter as Router } from "react-router-dom";
 // import { Switch, Route } from 'react-router'
 
@@ -11,7 +12,11 @@ class Index extends Component {
   state={
     selectedTab:'menu'
   }
+  selectedTab = (tab) => {
+  this.props.dispatch({type:'saveSelectedtab',payload:tab})
+  }
   render() {
+    const {selectedTab} = this.props;
     return(
       <div  style={{ position: 'fixed', height: '100%', width: '100%', top: 0,background:'white'} }>
 
@@ -31,12 +36,8 @@ class Index extends Component {
                       height: '22px',
                       background: 'url(/images/tab/首页_.png) center center /  21px 21px no-repeat' }}
                     />}
-             onPress={()=>{this.setState({
-               selectedTab:'menu'
-             });
-             // window.location.href = `http://localhost:3000/#/menu`
-              }}
-             selected={this.state.selectedTab ==='menu'}
+             onPress={()=>{this.selectedTab('menu')}}
+             selected={selectedTab ==='menu'}
              >
               <Menu/>
              </TabBar.Item>
@@ -48,12 +49,8 @@ class Index extends Component {
                      height: '22px',
                      background: 'url(/images/tab/发起.png) center center /  21px 21px no-repeat' }}
                    />}
-              selected={this.state.selectedTab ==='mine'}
-              onPress={()=>{this.setState({
-                selectedTab:'mine'
-              });
-              // window.location.href = `http://localhost:3000/#/cccc`
-              }}
+              selected={selectedTab ==='mine'}
+              onPress={()=>{this.selectedTab('mine')}}
               selectedIcon={<div style={{
                          width: '22px',
                          height: '22px',
@@ -72,12 +69,8 @@ class Index extends Component {
                       height: '22px',
                       background: 'url(/images/tab/审核.png) center center /  21px 21px no-repeat' }}
                     />}
-               selected={this.state.selectedTab ==='audit'}
-               onPress={()=>{this.setState({
-                 selectedTab:'audit'
-               });
-               // window.location.href = `http://localhost:3000/#/cccc`
-               }}
+               selected={selectedTab ==='audit'}
+               onPress={()=>{this.selectedTab('audit')}}
                selectedIcon={<div style={{
                           width: '22px',
                           height: '22px',
@@ -94,10 +87,8 @@ class Index extends Component {
                   height: '22px',
                   background: 'url(/images/tab/我的.png) center center /  21px 21px no-repeat' }}
                 />}
-               selected={this.state.selectedTab ==='user'}
-               onPress={()=>{this.setState({
-                 selectedTab:'user'
-               })}}
+               selected={selectedTab ==='user'}
+               onPress={()=>{this.selectedTab('user')}}
                selectedIcon={<div style={{
                       width: '22px',
                       height: '22px',
@@ -114,4 +105,4 @@ class Index extends Component {
 }
 
 
-export default Index
+export default connect(state => {return {selectedTab:state.selectedTab}})(Index)

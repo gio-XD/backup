@@ -9,7 +9,6 @@ function saveAsset(state = [],action){
   }
 }
 
-
 function saveForm(state = {},action){
   if(action.type === 'saveForm'){
     return  {...state,...action.payload};
@@ -20,7 +19,16 @@ function saveForm(state = {},action){
 
 function saveAllocationData(state = [],action){
   if(action.type === 'saveAllocationData'){
-    console.log(action.payload);
+    // console.log(action.payload);
+    return  action.payload;
+  }else{
+    return state;
+  }
+}
+
+function saveSelectedtab(state = 'menu',action){
+  if(action.type === 'saveSelectedtab'){
+    // console.log(action.payload);
     return  action.payload;
   }else{
     return state;
@@ -30,7 +38,8 @@ function saveAllocationData(state = [],action){
 const reducer = combineReducers({
   assetList:saveAsset,
   formData:saveForm,
-  allocationData:saveAllocationData
+  allocationData:saveAllocationData,
+  selectedTab:saveSelectedtab
 });
 
 

@@ -11,7 +11,8 @@ import { Provider } from 'react-redux';
 
 const state = {
   assetList:[],
-  allocation:[]
+  allocation:[],
+  selectedTab:'menu'
 }
 const store = createStore(reducer,state,applyMiddleware(ReduxThunk));
 

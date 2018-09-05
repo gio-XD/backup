@@ -27,6 +27,7 @@ class Form extends Component{
  }
 
   render(){
+    console.log(this.props);
     const document = window.document;
     const { getFieldProps } = this.props.form;
     const pickerData = [

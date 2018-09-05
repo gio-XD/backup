@@ -9,6 +9,7 @@ import * as MyActions from '../../Actions/asyncActions'
 
 class Index extends Component{
   componentWillMount(){
+    if(this.props.data.length === 0)
     this.props.dispatch(MyActions.fetchAllocationData())
   }
 
