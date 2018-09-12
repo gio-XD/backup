@@ -16,8 +16,8 @@ function MyBody(props) {
 
 
 // const NUM_SECTIONS = 1;
-const NUM_ROWS_PER_SECTION = 1;
-let pageIndex = 0;
+// const NUM_ROWS_PER_SECTION = 1;
+// let pageIndex = 0;
 
 function genData(ds, listData) {
   console.log(listData);
@@ -53,11 +53,10 @@ class Content extends Component{
         rowHasChanged: (row1, row2) =>{/* console.log(row1 !== row2);*/ return /*row1 !== row2*/ true}, //为true时listview重新渲染row组件
         sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
       });
-
       this.state = {
         dataSource:genData(dataSource,this.props.data),
         isLoading: true,
-        height: document.documentElement.clientHeight * 3 / 4,
+        height: document.documentElement.clientHeight -50,
       };
     }
 
@@ -163,7 +162,7 @@ class Content extends Component{
             height: this.state.height,
             overflow: 'auto',
           }}
-          pageSize={1}
+          pageSize={4}
          onScroll={() => { console.log('scroll'); }}
           scrollRenderAheadDistance={50}
           onEndReached={this.onEndReached}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {NavBar,Icon,Button} from 'antd-mobile';
+import {NavBar,Button} from 'antd-mobile';
 import {withRouter } from 'react-router';
 import Assetlist from '../Assetlist'
 import './style.css';
@@ -40,10 +40,10 @@ class AuditDetail extends Component{
         <NavBar
           className='NavBar'
           mode="light"
-          rightContent={[
-           <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-           <Icon key="1" type="ellipsis" />,
-         ]}
+          leftContent={<span style={{ color: 'black',opacity:'0.5' }} onClick={()=> this.props.history.goBack()}>{'<返回'}</span>}
+         //  rightContent={[
+         //   <Icon key="0" type="search" style={{ marginRight: '8px' }} />,
+         // ]}
           >待我审核</NavBar>
           <div className='tabpage'>
             <div className='mine-cardlist'>

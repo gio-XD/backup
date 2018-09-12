@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import {formatData} from './formatData.js'
+import {formatData} from '../../utils/formatData.js'
 import {data,data2} from '../../mock/mock.js'
 
 console.log(formatData(data));
