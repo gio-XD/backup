@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 
 
-export function wxConfig(word,companyid,type){
+export function wxConfig(){
   return (dispatch) => {
             fetch('http://219.228.13.114/getAuth',{
               method:"post",
@@ -36,7 +36,7 @@ export function wxConfig(word,companyid,type){
 
 
 
-export function wxLogin(code){
+export function wxLogin(code,history){
     return(dispatch) => {
       fetch('http://219.228.13.114/getOpenId',{
         method:"post",

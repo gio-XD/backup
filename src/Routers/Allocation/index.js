@@ -19,7 +19,7 @@ class Index extends Component{
         <NavBar
           className='NavBar'
           mode="dark"
-          leftContent={<span onClick={()=> this.props.history.goBack()}>{'<返回'}</span>}
+          leftContent={<span onClick={()=> this.props.location.pathname === "/assetallocation/list"?this.props.history.push('/index') : this.props.history.goBack()}>{'<返回'}</span>}
           >{this.props.location.pathname === "/assetallocation/list" ?'调拨入账' : '调拨详情'}</NavBar>
           <Route path='/assetallocation' exact render={()=>(<Redirect to='/assetallocation/list'/>)}/>
           <Route path='/assetallocation/list'  render={()=>(<Allocation {...this.props}/>)}/>

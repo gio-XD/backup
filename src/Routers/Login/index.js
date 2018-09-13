@@ -10,18 +10,20 @@ import './style.css'
 class Login extends Component{
   constructor(props) {
       super(props)
-      console.log(1);
+      const history = props.history || null
       props.dispatch(wxConfig())
       if(window.location.href.split('?')[1])
-      props.dispatch(wxLogin(window.location.href.split('?')[1].split('=')[1].split('&')[0]));
+      props.dispatch(wxLogin(window.location.href.split('?')[1].split('=')[1].split('&')[0]),history);
+      props.dispatch(wxLogin(123,history));
       this.state={
         username:undefined,
         password:undefined
       }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.loginStatus.status === 'success') {
-      this.props.history.push('/index')
+      this.props.history.replace('/index')
     }
   }
 

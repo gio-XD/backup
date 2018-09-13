@@ -14,6 +14,7 @@ const state = {
   allocation:[],
   selectedTab:'menu'
 }
+
 const store = createStore(reducer,state,applyMiddleware(ReduxThunk));
 
 ReactDOM.render(

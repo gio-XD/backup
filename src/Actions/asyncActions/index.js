@@ -77,8 +77,8 @@ if(title){
     return d;
   })
 }else {
-  var e = eval('/'+!check+'/g')
-   data_temp=JSON.parse(JSON.stringify(data).replace(e,check))
+  var e = eval('/'+`"check":${!check}`+'/g')
+   data_temp=JSON.parse(JSON.stringify(data).replace(e,`"check":${check}`))
 }
 return (dispatch) => {
     dispatch({type:'saveAllocationData',payload:data_temp});
