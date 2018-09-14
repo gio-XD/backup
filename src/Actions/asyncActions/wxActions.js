@@ -2,6 +2,7 @@ import 'whatwg-fetch'
 
 
 export function wxConfig(){
+
   return (dispatch) => {
             fetch('http://219.228.13.114/getAuth',{
               method:"post",
