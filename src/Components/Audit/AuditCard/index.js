@@ -14,6 +14,12 @@ class AuditCard extends Component{
             <div className='mine-card-listcontainer'>
               <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
               <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
+              <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
+              <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
+              <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
+              <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
+              <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
+              <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
                 <div className='listitem2' onClick={()=> onClick()}><div className='left'>单据编号：CZ2187617</div><div className='right '>申请日期：2018年9月10日</div></div>
             </div>
           </div>
