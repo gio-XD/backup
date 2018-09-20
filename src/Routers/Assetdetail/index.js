@@ -6,7 +6,6 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import './style.css'
 
 const Stickyitem = (props)=>{
-  console.log(props);
   return(
     <Sticky>
     {({ style }) => <div style={style}>

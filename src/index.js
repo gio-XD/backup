@@ -10,7 +10,6 @@ import { Provider } from 'react-redux';
 
 
 const state = {
-  assetList:[],
   allocation:[],
   selectedTab:'menu'
 }
