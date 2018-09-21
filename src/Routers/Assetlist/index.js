@@ -23,6 +23,9 @@ class Index extends Component{
   }
   onFresh = () => {
     const {dispatch,assetList} = this.props;
+    console.log(assetList.hasMore);
+    if(!assetList.hasMore) return;
+    console.log('isfetching');
     this.setState({
       isfreshing:true
     })

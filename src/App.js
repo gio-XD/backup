@@ -12,6 +12,7 @@ import Check from './Routers/Check';
 import Login from './Routers/Login';
 import Allocation from './Routers/Allocation';
 import AuditDetail from './Components/Audit/AuditDetail';
+import NewCard from './Components/NewCard';
 
 const Menu = (({match}) => (
   <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0,background:'white'} }>
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path='/assetlist' exact component={Assetquery}/>
           <Route path='/asset/:id'   component={Assetdetail}/>
           <Route path='/index/:menu'  component={Menu}/>
+          <Route path='/:menu' component={NewCard}/>
         </Switch>
       </Router>
 

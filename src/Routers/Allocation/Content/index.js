@@ -8,7 +8,7 @@ const AgreeItem = Checkbox.AgreeItem;
 
 function MyBody(props) {
   return (
-    <div className="am-list-body my-body">
+    <div style={{height:document.documentElement.clientHeight - 85}}>
       {props.children}
     </div>
   );
@@ -63,9 +63,9 @@ class Content extends Component{
 
     componentWillReceiveProps(nextProps) {
       if (nextProps.data !== this.props.data) {
-        // console.log(nextProps.data);
+        console.log(nextProps.data);
         let data = [...nextProps.data]
-        const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
+        const hei = document.documentElement.clientHeight-85 - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
         // setTimeout(() => {
           this.setState({
             dataSource: genData(this.state.dataSource, data),
@@ -82,14 +82,18 @@ class Content extends Component{
       // if (this.state.isLoading && !this.state.hasMore) {
       //   return;
       // }
+      this.props.dispatch({
+        type:'saveAllocationData',
+        payload:this.props.data
+      })
       console.log('reach end', event);
       this.setState({ isLoading: true });
-      setTimeout(() => {
-        this.setState({
-          dataSource: genData(this.state.dataSource, this.props.data),
-          isLoading: false,
-        });
-      }, 400);
+      // setTimeout(() => {
+      //   this.setState({
+      //     dataSource: genData(this.state.dataSource, this.props.data),
+      //     isLoading: false,
+      //   });
+      // }, 400);
     }
 
     render() {

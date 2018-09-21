@@ -18,8 +18,12 @@ export function query(word,companyid,type,pageIndex,action){
               // console.log(response);
               return response.json()
             }).then(function(data) {
-
               console.log('parsed json', data);
+              if(data.action === 'query'){
+                console.log('initialAssetList');
+                dispatch({type:'initialAssetList'});
+              }
+
               dispatch({type:'saveAssetList',payload:{data:data.data,action:data.action}});
             }).catch(function(ex) {
               console.log('parsing failed', ex)

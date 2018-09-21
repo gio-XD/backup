@@ -79,7 +79,7 @@ export function wxLogin(code,history){
       })
 
       .catch(function(ex) {
-        console.log('Oops,something wrong...', ex)
+        console.log('Oops,something wrong...', 'happened at wxLogin')
       })
     }
 }
