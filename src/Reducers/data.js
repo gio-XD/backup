@@ -44,11 +44,13 @@ export function saveForm(state = {},action){
 }
 
 export function saveAllocationData(state = [],action){
-  if(action.type === 'saveAllocationData'){
-    // console.log(action.payload);
-    return   state.concat(action.payload) ;
-  }else{
-    return state;
+  switch (action.type) {
+    case 'saveAllocationData':
+      return  Array.isArray(action.payload)?  state.concat(action.payload) :state;
+    case 'updateAllocationData':
+      return   Array.isArray(action.payload) ? action.payload : action.payload.allocationData;
+    default:
+      return state;
   }
 }
 

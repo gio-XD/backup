@@ -63,7 +63,7 @@ class Content extends Component{
 
     componentWillReceiveProps(nextProps) {
       if (nextProps.data !== this.props.data) {
-        console.log(nextProps.data);
+        // console.log(nextProps.data);
         let data = [...nextProps.data]
         const hei = document.documentElement.clientHeight-85 - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
         // setTimeout(() => {

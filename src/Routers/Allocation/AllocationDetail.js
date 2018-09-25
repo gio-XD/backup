@@ -1,7 +1,7 @@
 import React,{Component,Fragment} from 'react';
 import {List,InputItem,Button,Picker,WingBlank } from 'antd-mobile'
 import { createForm, formShape } from 'rc-form';
-import * as MyActions from '../../Actions/Actions';
+import * as MyActions from '../../Actions/asyncActions';
 
 
 class Form extends Component{
@@ -11,15 +11,16 @@ class Form extends Component{
   };
 
   state={
-
+    property:'A',
+    department:'A',
+    keeper:'张三'
   }
 
   onSubmit = () => {
-    const {history,dispatch} = this.props;
-   this.props.form.validateFields((error, value) => {
-     console.log(error, value);
+    const {history,dispatch,data} = this.props;
+    this.props.form.validateFields((error, value) => {
      if(!error){
-       dispatch(MyActions.saveForm(value))
+       dispatch(MyActions.completeAllocation(value,data))
      }
    });
 
@@ -57,14 +58,14 @@ class Form extends Component{
                     extra=' '
                     data={pickerData}
                     cascade={false}
-                    onOk={v => this.setState({ property: v[0] })}
-                    onDismiss={() => this.setState({ property: null })}
+                    onOk={v => this.setState({ department: v[0] })}
+                    onDismiss={() => this.setState({ department: null })}
                   >
                     <InputItem
                       clear
                       placeholder="请选择使用部门"
-                      {...getFieldProps('property',{
-                        initialValue:'A'
+                      {...getFieldProps('department',{
+                        initialValue:this.state.department
                       })}
                       onFocus={( )=>{document.activeElement.blur()}}
                     >*使用部门</InputItem>
@@ -72,15 +73,15 @@ class Form extends Component{
 
                   <InputItem
                     clear
-                    placeholder="请输入规格型号"
-                    {...getFieldProps('type',{
-                      initialValue:'型号A'
+                    placeholder="请输入保管人"
+                    {...getFieldProps('keeper',{
+                      initialValue:this.state.keeper
                       // onChange:function(a){console.log('123213',a)},
                     })}
                   >保管人</InputItem>
 
                   <Picker
-                    title="选择存放地点"
+                    title="选择资产属性"
                     extra=' '
                     data={pickerData}
                     cascade={false}
@@ -89,9 +90,9 @@ class Form extends Component{
                   >
                     <InputItem
                       clear
-                      placeholder="请选择存放地点"
-                      {...getFieldProps('keepPlace',{
-                        initialValue:'A'
+                      placeholder="请选择资产属性"
+                      {...getFieldProps('property',{
+                        initialValue:this.state.property
                       })}
                       onFocus={( )=>{document.activeElement.blur()}}
                     >*资产属性</InputItem>

@@ -6,6 +6,11 @@ import './style.css';
 
 
 class AuditDetail extends Component{
+
+  handleClick = () => {
+    console.log('handleClick');
+    this.props.history.goBack()
+  }
   render(){
 
     const data =[
@@ -56,7 +61,8 @@ class AuditDetail extends Component{
                 <Assetlist data={data}/>
             </div>
             <div className='mine-agree-btn-group'>
-              <Button style={{width:'25%',marginRight:'5px'}} type='primary'>同意</Button><Button style={{width:'25%',marginLeft:'5px'}} type='primary'>不同意</Button>
+              <Button style={{width:'25%',marginRight:'5px'}} type='primary' onClick={this.handleClick}>同意</Button>
+              <Button style={{width:'25%',marginLeft:'5px'}} type='primary' onClick={this.handleClick}>不同意</Button>
             </div>
           </div>
       </div>

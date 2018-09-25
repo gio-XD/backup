@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Router from './App';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './Reducers/reducer.js';
 import  {createStore,applyMiddleware} from 'redux';
@@ -18,7 +18,7 @@ const store = createStore(reducer,state,applyMiddleware(ReduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router/>
   </Provider>,
    document.getElementById('root'));
 registerServiceWorker();

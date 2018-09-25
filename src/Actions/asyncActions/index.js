@@ -65,11 +65,11 @@ if(title){
     return d;
   })
 }else {
-  var e = eval('/'+`"check":${!check}`+'/g')
+  var e = eval(`/"check":${!check}/g`)
    data_temp=JSON.parse(JSON.stringify(data).replace(e,`"check":${check}`))
 }
 return (dispatch) => {
-    dispatch({type:'saveAllocationData',payload:data_temp});
+    dispatch({type:'updateAllocationData',payload:data_temp});
   }
 }
 
@@ -78,5 +78,23 @@ return (dispatch) => {
 export function fetchAllocationData(){
   return (dispatch) => {
       dispatch({type:'saveAllocationData',payload:formatData(data)});
+    }
+}
+
+export function completeAllocation(formData,allocationData){
+
+  function handleAllocationData(data){
+    data.map((item,index) => {
+      if(item.check){
+        data.splice(index,1);
+        index -- ;
+      }else if(item.children){
+        handleAllocationData(item.children)
+      }
+    })
+    return data;
+  }
+  return (dispatch) => {
+      dispatch({type:'updateAllocationData',payload:{formData,allocationData:handleAllocationData(allocationData)}});
     }
 }
