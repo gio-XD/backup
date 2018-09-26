@@ -24,12 +24,13 @@ margin-right: 4px;
   padding-left: 8px;
   padding-right: 8px;
   padding-bottom: 8px;
+  padding-top: 8px;
   overflow-y: scroll;
 }
 
 .tabpage .mine-card {
   background-color: white;
-  height: 40%;
+  height: auto;
   border-radius: 5px;
   margin-top: 10px;
   padding-left: 16px;
@@ -40,13 +41,10 @@ margin-right: 4px;
    font-size: 16px;
    color: black;
    opacity: 0.8;
-   height: 20px
+   height: 20px;
+   padding-top: 6px;
  }
 
- .mine-card .mine-card-listcontainer{
-   height: 80%;
-   overflow-y: scroll;
- }
 
 
 .refresh{

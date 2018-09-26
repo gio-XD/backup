@@ -1,0 +1,20 @@
+
+
+.验收查询  , .资产新增  , .资产调拨    , .设备申请  , .资产变更  , .预算查询  , .合同查询{
+  height: 35px;
+  width: 42px
+}
+
+.资产报表{
+  width: 39px;
+  height: 33px;
+  position: relative;
+  top: 2px;
+}
+
+.资产查询 {
+  width: 45px;
+  height: 33px;
+  position: relative;
+  top: 2px;
+}

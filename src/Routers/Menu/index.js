@@ -10,7 +10,10 @@ import { HashRouter as Router } from "react-router-dom";
 
 class Index extends Component {
   state={
-    selectedTab:'menu'
+    selectedTab:'menu',
+    badge:5,
+    dot:true
+
   }
   selectedTab = (tab) => {
   this.props.dispatch({type:'saveSelectedtab',payload:tab})
@@ -42,7 +45,7 @@ class Index extends Component {
               <Menu/>
              </TabBar.Item>
              <TabBar.Item
-              badge={5}
+              badge={this.state.badge}
               title='我发起的' key = 'mine'
               icon = {<div style={{
                      width: '22px',
@@ -50,7 +53,12 @@ class Index extends Component {
                      background: 'url(/images/tab/发起.png) center center /  21px 21px no-repeat' }}
                    />}
               selected={selectedTab ==='mine'}
-              onPress={()=>{this.selectedTab('mine')}}
+              onPress={()=>{
+                this.selectedTab('mine');
+                this.setState({
+                  badge:0
+                })
+              }}
               selectedIcon={<div style={{
                          width: '22px',
                          height: '22px',
@@ -62,7 +70,7 @@ class Index extends Component {
               </div>
               </TabBar.Item>
               <TabBar.Item
-               dot
+               dot={this.state.dot}
                title='待我审核' key = 'audit'
                icon = {<div style={{
                       width: '22px',
@@ -70,7 +78,12 @@ class Index extends Component {
                       background: 'url(/images/tab/审核.png) center center /  21px 21px no-repeat' }}
                     />}
                selected={selectedTab ==='audit'}
-               onPress={()=>{this.selectedTab('audit')}}
+               onPress={()=>{
+                 this.selectedTab('audit');
+                 this.setState({
+                   dot:false
+                 })
+               }}
                selectedIcon={<div style={{
                           width: '22px',
                           height: '22px',

@@ -20,12 +20,14 @@ function MyBody(props) {
 // let pageIndex = 0;
 
 function genData(ds, listData) {
-  console.log(listData);
+  console.log('--------------',listData);
   const dataBlob = ds._dataBlob ? ds._dataBlob : {}
   // let dataBlob={...dataBlob}
   const sectionIDs = [];
   const rowIDs = [];
   listData.forEach((item, index) => {
+    if(!item) return
+    if(!item.children) return
     sectionIDs.push(JSON.stringify({title:item.title,check:item.check}));
     // dataBlob[item.title] = item.title;
     rowIDs[index] = [];

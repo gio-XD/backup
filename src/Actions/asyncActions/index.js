@@ -81,20 +81,47 @@ export function fetchAllocationData(){
     }
 }
 
-export function completeAllocation(formData,allocationData){
 
-  function handleAllocationData(data){
-    data.map((item,index) => {
-      if(item.check){
-        data.splice(index,1);
-        index -- ;
-      }else if(item.children){
-        handleAllocationData(item.children)
-      }
-    })
-    return data;
-  }
+export function completeAllocation(formData,allocationData){
   return (dispatch) => {
-      dispatch({type:'updateAllocationData',payload:{formData,allocationData:handleAllocationData(allocationData)}});
+      let data = findUncheckedAllocationData(allocationData).filter(item => {
+        return item !== null
+      })
+      dispatch({type:'updateAllocationData',payload:{formData,allocationData:data}});
     }
+}
+function findUncheckedAllocationData(data){
+  return data.map(function(item){
+        let result = item.children.filter(a => {
+          return !a.check
+        })
+        if(result.length > 0){
+          console.log('result',result);
+          return {
+            title:item.title,
+            check:item.check,
+            children:result
+          };
+        }else {
+          return null
+        }
+      })
+}
+
+function findCheckedAllocationData(data){
+  return data.map(function(item){
+        let result = item.children.filter(a => {
+          return a.check
+        })
+        if(result.length > 0){
+          console.log('result',result);
+          return {
+            title:item.title,
+            check:item.check,
+            children:result
+          };
+        }else {
+          return null
+        }
+      })
 }

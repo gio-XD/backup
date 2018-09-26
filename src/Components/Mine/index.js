@@ -9,7 +9,6 @@ import './style.css';
 
 class Mine extends Component{
 
-
   render(){
     const tabs = [
       { title: '待审批', sub: '1' },
