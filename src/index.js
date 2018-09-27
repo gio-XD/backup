@@ -11,7 +11,20 @@ import { Provider } from 'react-redux';
 
 const state = {
   allocation:[],
-  selectedTab:'menu'
+  selectedTab:'menu',
+  global:{
+    index:{
+      tabIndex:'menu'
+    },
+    mine:{
+      tabIndex:0,
+      direction:'right'
+    },
+    audit:{
+      tabIndex:0,
+      direction:'right'
+    }
+  }
 }
 
 const store = createStore(reducer,state,applyMiddleware(ReduxThunk));

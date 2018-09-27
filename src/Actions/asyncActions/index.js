@@ -91,7 +91,8 @@ export function completeAllocation(formData,allocationData){
     }
 }
 function findUncheckedAllocationData(data){
-  return data.map(function(item){
+  let data_temp = [...data]
+  return data_temp.map(function(item){
         let result = item.children.filter(a => {
           return !a.check
         })
@@ -109,7 +110,8 @@ function findUncheckedAllocationData(data){
 }
 
 function findCheckedAllocationData(data){
-  return data.map(function(item){
+  let data_temp = [...data]
+  return data_temp.map(function(item){
         let result = item.children.filter(a => {
           return a.check
         })

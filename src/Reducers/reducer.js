@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
-import {saveAsset,saveForm,saveAllocationData,saveSelectedtab} from './data.js'
+import {saveAsset,saveForm,saveAllocationData} from './data.js'
 import {saveLoginStatus} from './login.js'
+import {saveTabIndex} from './global.js'
 import { routerReducer } from 'react-router-redux'
 
 
@@ -11,8 +12,8 @@ const reducer = combineReducers({
   assetList:saveAsset,
   formData:saveForm,
   allocationData:saveAllocationData,
-  selectedTab:saveSelectedtab,
-  loginStatus:saveLoginStatus
+  loginStatus:saveLoginStatus,
+  global:saveTabIndex
 });
 
 

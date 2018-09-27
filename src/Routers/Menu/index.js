@@ -5,6 +5,8 @@ import Mine from '../../Components/Mine';
 import { connect } from 'react-redux';
 import Audit from '../../Components/Audit';
 import { HashRouter as Router } from "react-router-dom";
+import {handleTabChange} from '../../Actions/asyncActions/global'
+import QueueAnim from 'rc-queue-anim'
 // import { Switch, Route } from 'react-router'
 
 
@@ -16,7 +18,7 @@ class Index extends Component {
 
   }
   selectedTab = (tab) => {
-  this.props.dispatch({type:'saveSelectedtab',payload:tab})
+  this.props.dispatch(handleTabChange(this.props.selectedTab,tab,'index'))
   }
   render() {
     const {selectedTab} = this.props;
@@ -26,6 +28,7 @@ class Index extends Component {
         <TabBar
           tabBarPosition = 'bottom'
           tintColor="#33A3F4"
+          prerenderingSiblingsNumber={0}
           >
              <TabBar.Item
              title='首页' key = 'menu'
@@ -101,14 +104,23 @@ class Index extends Component {
                   background: 'url(/images/tab/我的.png) center center /  21px 21px no-repeat' }}
                 />}
                selected={selectedTab ==='user'}
-               onPress={()=>{this.selectedTab('user')}}
+               onPress={()=>{
+                 this.selectedTab('user');
+               }}
                selectedIcon={<div style={{
                       width: '22px',
                       height: '22px',
                       background: 'url(/images/tab/我的_.png) center center /  21px 21px no-repeat' }}
                     />}>
                   <Router>
-                    <div>我的</div>
+                    <QueueAnim
+                      type='alpha'
+                      >
+                      <div key = '1'>1</div>
+                      <div key = '2'>1</div>
+                      <div key = '3'>1</div>
+                      <div key = '4'>1</div>
+                    </QueueAnim>
                   </Router>
               </TabBar.Item>
           </TabBar>
@@ -118,4 +130,4 @@ class Index extends Component {
 }
 
 
-export default connect(state => {return {selectedTab:state.selectedTab}})(Index)
+export default connect(state => {return {selectedTab:state.global.index.tabIndex}})(Index)

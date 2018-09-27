@@ -12,6 +12,7 @@ class Audit extends Component{
         <NavBar
           className='NavBar'
           mode="light"
+          animated={false}
           rightContent={[
            <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
            <Icon key="1" type="ellipsis" />,
