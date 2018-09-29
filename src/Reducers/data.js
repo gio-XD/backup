@@ -1,21 +1,21 @@
-export function saveAsset(state = {data:[],pageIndex:1,hasMore:true},action){
-  switch (action.type) {
+export function saveAsset(state = {data:[],pageIndex:1,hasMore:true},{type,payload}){
+  switch (type) {
     case 'saveAssetList':
-        switch (action.payload.action) {
+        switch (payload.action) {
           case 'fetch':
               return  {
                 ...state,
-                data:state.data.concat(action.payload.data),
-                hasMore:action.payload.data.length !== 0,
-                pageIndex:action.payload.data.length === 0 ? state.pageIndex : state.pageIndex + 1
+                data:state.data.concat(payload.data),
+                hasMore:payload.data.length !== 0,
+                pageIndex:payload.data.length === 0 ? state.pageIndex : state.pageIndex + 1
               }
 
           case 'query':
               return  {
                 ...state,
-                data:state.data.concat(action.payload.data),
-                hasMore:action.payload.data.length !== 0,
-                pageIndex:action.payload.data.length === 0 ? state.pageIndex : state.pageIndex + 1
+                data:state.data.concat(payload.data),
+                hasMore:payload.data.length !== 0,
+                pageIndex:payload.data.length === 0 ? state.pageIndex : state.pageIndex + 1
               }
 
           default:
@@ -35,29 +35,32 @@ export function saveAsset(state = {data:[],pageIndex:1,hasMore:true},action){
   }
 }
 
-export function saveForm(state = {},action){
-  if(action.type === 'saveForm'){
-    return  {...state,...action.payload};
+export function saveForm(state = {},{type,payload}){
+  if(type === 'saveForm'){
+    return  {
+      ...state,
+      ...payload
+    };
   }else{
     return state;
   }
 }
 
-export function saveAllocationData(state = [],action){
-  switch (action.type) {
+export function saveAllocationData(state = [],{type,payload}){
+  switch (type) {
     case 'saveAllocationData':
-      return  Array.isArray(action.payload)?  state.concat(action.payload) :state;
+      return  Array.isArray(payload)?  state.concat(payload) :state;
     case 'updateAllocationData':
-      return   Array.isArray(action.payload) ? action.payload : action.payload.allocationData;
+      return   Array.isArray(payload) ? payload : payload.allocationData;
     default:
       return state;
   }
 }
 
-export function saveSelectedtab(state = 'menu',action){
-  if(action.type === 'saveSelectedtab'){
+export function saveSelectedtab(state = 'menu',{type,payload}){
+  if(type === 'saveSelectedtab'){
     // console.log(action.payload);
-    return  action.payload ;
+    return  payload ;
   }else{
     return state;
   }

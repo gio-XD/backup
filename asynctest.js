@@ -2,28 +2,26 @@
 /*
   **********async/await
 */
-// let sleep = function (time) {
-//     return new Promise((resolve,reject) => {
-//       setTimeout(function () {
-//         console.log('its me');
-//         resolve('aaa')
-//       }, time);
-//     })
-// };
-//
-// let howLongToSleep = async function () {
-//     // 在这里使用起来就像同步代码那样直观
-//
-//     console.log('start');
-//     console.time('a')
-//     for(let i= 0;i< 10 ; i ++){
-//       await sleep(3000)
-//     }
-//     console.timeEnd('a')
-//     console.log('end');
-// };
-//
-// howLongToSleep();
+let sleep = function (time) {
+    return new Promise((resolve,reject) => {
+      setTimeout(function () {
+        console.log('its me');
+        resolve('aaa')
+      }, time);
+    })
+};
+
+let howLongToSleep = async function () {
+    console.log('start');
+    console.time('a')
+    for(let i= 0;i< 10 ; i ++){
+      await sleep(3000)
+    }
+    console.timeEnd('a')
+    console.log('end');
+};
+
+howLongToSleep();
 
 
 

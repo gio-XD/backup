@@ -32,4 +32,10 @@ class Check extends Component{
 
 
 
-export default withRouter(connect()(Check))
+export default withRouter(connect(
+  // state =>{
+  //   return {
+  //     config:state.global
+  //   }
+  // }
+)(Check))

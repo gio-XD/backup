@@ -16,6 +16,10 @@ const state = {
     index:{
       tabIndex:'menu'
     },
+    checkSearch:{
+      tabIndex:0,
+      direction:'right'
+    },
     mine:{
       tabIndex:0,
       direction:'right'

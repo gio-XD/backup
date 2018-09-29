@@ -2,7 +2,8 @@ import 'whatwg-fetch'
 
 export function odooLogin(username,password,openid){
     return(dispatch) => {
-      fetch('http://219.228.13.114/odooApi/mocklogin',{
+      // fetch('http://219.228.13.114/odooApi/mocklogin',{
+        fetch('http://localhost/odooApi/mocklogin',{
         method:"post",
         headers: {
    　　　　 'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ export function odooLogin(username,password,openid){
       })
       .then(function(data){
 
-        fetch('http://219.228.13.114/odooApi/mockregist',{
+        fetch('http://localhost/odooApi/mockregist',{
           method:"post",
           headers: {
      　　　　 'Content-Type': 'application/json',

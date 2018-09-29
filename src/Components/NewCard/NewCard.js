@@ -1,5 +1,5 @@
 import React,{Component,Fragment} from 'react'
-
+import QueueAnim from 'rc-queue-anim'
 import './NewCard.css'
 
 
@@ -26,7 +26,9 @@ class NewCard extends Component {
           >
           <span>{isOpen? '收起' : '展开'}</span>
         </div>
-        {isOpen ? <div className = 'newcard-detail'>NewCard detail</div> : null}
+        {/* <QueueAnim type='top' duration = {100} transitionLeave={false}> */}
+          {isOpen ? <div key = '1' className = 'newcard-detail'>NewCard detail</div> : null}
+        {/* </QueueAnim> */}
       </Fragment>
 
 

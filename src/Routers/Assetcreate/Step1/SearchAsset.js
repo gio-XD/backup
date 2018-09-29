@@ -1,25 +1,71 @@
 import React,{Component,Fragment} from 'react';
 import { AutoComplete ,Input,Icon} from 'antd';
 import { connect } from 'react-redux';
-import {NavBar} from 'antd-mobile';
+import {NavBar,Tag} from 'antd-mobile';
 import * as MyActions from '../../../Actions/Actions';
 import 'antd/dist/antd.css';
 import './SearchAsset.css'
 
+const defaultTagdata = [
+  {
+    title:'资产aaaa',
+    key:'aaa'
+  },
+  {
+    title:'资产bbbb',
+    key:'bbb'
+  },
+  {
+    title:'资产cccc',
+    key:'ccc'
+  },
+  {
+    title:'资产dddd',
+    key:'ddd'
+  },
+  {
+    title:'资产eeee',
+    key:'eee'
+  },
+]
+
+
 class SearchAsset extends Component{
   state ={
-    defaultValue:this.props.formData.category?this.props.formData.category : undefined
+    defaultValue:this.props.formData.category?this.props.formData.category : undefined,
+    selectedKey:null
   }
   onSelect = (val) => {
     console.log(val);
     this.props.dispatch(MyActions.saveForm({category:val}))
     this.props.history.goBack()
   }
+
+  onChange = (selected,key) => {
+    if(selected){
+      this.setState({
+        selectedKey:key,
+        defaultValue:key
+      })
+      this.props.dispatch(MyActions.saveForm({category:key}))
+    }
+    return
+  }
+
+  renderTag = (tagdata = defaultTagdata) => {
+    const {selectedKey} =this.state;
+    return tagdata.map(data =>
+      <Tag
+        selected={selectedKey === data.key}
+        onChange={(key)=> {this.onChange(key,data.key)}}
+        >{data.title}</Tag>
+    )
+  }
   render(){
-    console.log(this);
-    const Option = AutoComplete.Option;
-    const OptGroup = AutoComplete.OptGroup;
-    const dataSource = [{
+
+    const Option = AutoComplete.Option,
+          OptGroup = AutoComplete.OptGroup,
+          dataSource = [{
         title: '类别1',
         children: [{
           title: 'AAA',
@@ -80,7 +126,6 @@ class SearchAsset extends Component{
         ]);
 
 
-
     return(
       <Fragment>
       <NavBar
@@ -101,12 +146,17 @@ class SearchAsset extends Component{
            dataSource={options}
            placeholder="资产类别"
            optionLabelProp="value"
-           defaultValue={this.state.defaultValue}
+           value={this.state.defaultValue}
            onSelect={this.onSelect}
          >
            <Input suffix={<Icon type="search" className="certain-category-icon" />} />
          </AutoComplete>
        </div>
+       <div className='certain-category-search-tag'>
+         <h3>历史搜索</h3>
+         {this.renderTag()}
+       </div>
+
      </Fragment>
     )
   }

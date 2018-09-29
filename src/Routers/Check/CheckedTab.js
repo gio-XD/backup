@@ -7,8 +7,8 @@ class CheckedTab extends Component{
   render(){
     return (
       <div className='check-tab-content'>
-        <CheckCard {...this.props}/>
-        <CheckCard {...this.props}/>
+          <CheckCard key = '1' {...this.props}/>
+          <CheckCard key = '2' {...this.props}/>
       </div>
     )
   }

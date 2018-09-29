@@ -116,10 +116,10 @@ class Index extends Component {
                     <QueueAnim
                       type='alpha'
                       >
-                      <div key = '1'>1</div>
-                      <div key = '2'>1</div>
-                      <div key = '3'>1</div>
-                      <div key = '4'>1</div>
+                      <div key = '1'>我的</div>
+                      <div key = '2'>我的</div>
+                      <div key = '3'>我的</div>
+                      <div key = '4'>我的</div>
                     </QueueAnim>
                   </Router>
               </TabBar.Item>

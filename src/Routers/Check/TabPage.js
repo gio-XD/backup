@@ -19,17 +19,21 @@ class TabPage extends Component{
       props.tabs.forEach(tab => {
         value.push(tab.title)
       })
-      return <SegmentedControl style={{background:'#fff',marginBottom:'8px'}} values={value} onChange={a=>this.setState({tabPage:a.nativeEvent.selectedSegmentIndex})} />
+      return <SegmentedControl style={{background:'#fff',marginBottom:'8px'}} selectedIndex={tabPage} values={value} onChange={a=>this.setState({tabPage:a.nativeEvent.selectedSegmentIndex})} />
     }
+
     return (
       <Fragment>
-
-        <Tabs tabs={tabs}
+        <Tabs
+          tabs={tabs}
           page={tabPage}
           useOnPan={false}
           renderTabBar={renderTabBar}
-          onChange={(tab, index) => { console.log('onChange', index, tab); }}
-          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          //animated={false}
+          prerenderingSiblingsNumber = {0}
+          destroyInactiveTab={true}
+          //onChange={(tab, index) => { console.log('onChange', index, tab); }}
+          //onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
         >
             <CheckingTab {...this.props}/>
             <CheckedTab {...this.props}/>

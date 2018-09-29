@@ -1,8 +1,8 @@
-export function saveTabIndex (state = {},action){
-  if(action.type === 'saveTabIndex'){
+export function saveTabIndex (state = {},{type,payload}){
+  if(type === 'saveTabIndex'){
     return {
       ...state,
-      ...action.payload
+      ...payload
     }
   }else {
     return state

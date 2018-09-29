@@ -30,7 +30,7 @@ export function wxConfig(){
               // return
               })
             .catch(function(ex) {
-              console.log('Oops,something wrong...', 'WxComfig Failed')
+              console.log('Oops,something wrong...', 'WxComfig Failed',ex)
             })
     }
 }
@@ -79,7 +79,7 @@ export function wxLogin(code,history){
       })
 
       .catch(function(ex) {
-        console.log('Oops,something wrong...', 'happened at wxLogin')
+        console.log('Oops,something wrong...', 'happened at wxLogin',ex)
       })
     }
 }
