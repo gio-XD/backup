@@ -3,8 +3,8 @@ import {formatData} from '../../utils/formatData.js'
 import {data,data2} from '../../mock/mock.js'
 
 
-export function query(word,companyid,type,pageIndex,action){
-  console.log(companyid);
+export function query(word,companyid,pageIndex,action){
+  console.log(word,companyid,pageIndex,action);
   return (dispatch) => {
             fetch('http://localhost/api/query',{
               method:"post",
@@ -12,6 +12,7 @@ export function query(word,companyid,type,pageIndex,action){
          　　　　 'Accept': 'application/json',
          　　　　 'Content-Type': 'application/json',
        　　　　 },
+              // credentials: 'include',
               body:JSON.stringify({companyid,word,pageIndex,action})
             })
             .then(function(response) {

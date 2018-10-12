@@ -4,7 +4,7 @@ import 'whatwg-fetch'
 export function wxConfig(){
 
   return (dispatch) => {
-            fetch('http://219.228.13.114/getAuth',{
+            fetch('http://219.228.13.114/wx/getAuth',{
               method:"post",
               headers: {
          　　　　 'Accept': 'application/json',
@@ -39,7 +39,7 @@ export function wxConfig(){
 
 export function wxLogin(code,history){
     return(dispatch) => {
-      fetch('http://219.228.13.114/getOpenId',{
+      fetch('http://219.228.13.114/wx/getOpenId',{
         method:"post",
         headers: {
    　　　　 'Content-Type': 'application/json',

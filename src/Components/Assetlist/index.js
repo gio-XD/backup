@@ -1,19 +1,17 @@
 import React, { Component,Fragment } from 'react';
-import {WingBlank} from 'antd-mobile';
-
+import AssetCard from './AssetCard'
+import {WhiteSpace} from 'antd-mobile';
 import Card from './Card'
 import './style.css'
 
-
-// const data = Array.from(new Array(10)).map((_,i)=>i);
 class Index extends Component{
   render(){
     const {data} = this.props;
+    console.log(data);
     return(
           <Fragment>
-          <WingBlank size='md'>
-            {data.map((d,i)=><Card key={i} data={d}/>)}
-          </WingBlank>
+            <WhiteSpace/>
+            {data.map((d,i)=><AssetCard key={i} data={d}/>)}
         </Fragment>
     )
   }

@@ -47,17 +47,3 @@
   padding-left: 16px;
   padding-right: 16px;
 }
-
-.certain-category-search-tag{
-  height: 70%;
-  width: 100%;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 10%;
-}
-
-.certain-category-search-tag >div{
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-}

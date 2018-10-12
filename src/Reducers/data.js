@@ -2,6 +2,13 @@ export function saveAsset(state = {data:[],pageIndex:1,hasMore:true},{type,paylo
   switch (type) {
     case 'saveAssetList':
         switch (payload.action) {
+          case 'fresh':
+              return  {
+                ...state,
+                data:payload.data,
+                hasMore:true,
+                pageIndex: 1
+              }
           case 'fetch':
               return  {
                 ...state,
@@ -9,7 +16,6 @@ export function saveAsset(state = {data:[],pageIndex:1,hasMore:true},{type,paylo
                 hasMore:payload.data.length !== 0,
                 pageIndex:payload.data.length === 0 ? state.pageIndex : state.pageIndex + 1
               }
-
           case 'query':
               return  {
                 ...state,

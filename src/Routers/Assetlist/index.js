@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import {NavBar,SearchBar,PullToRefresh } from 'antd-mobile'
+import {NavBar,SearchBar,PullToRefresh ,Tag } from 'antd-mobile'
 import {withRouter } from 'react-router';
 import Assetlist from '../../Components/Assetlist';
+import FilterPage from '../../Components/FilterPage';
+import SearchInput from '../../Components/SearchInput';
 import { connect } from 'react-redux';
 import * as MyAtions from '../../Actions/asyncActions'
+
 import  './style.css'
 
 
@@ -13,13 +16,14 @@ class Index extends Component{
     this.state = {
       height:document.documentElement.clientHeight - 89, //列表高度
       isfreshing : false,
+      showSearchTab:false
     }
   }
   componentWillMount(){
     const {dispatch,assetList} = this.props;
-    console.log(assetList);
+    // console.log(assetList);
     if(assetList.data.length === 0)
-    dispatch(MyAtions.query('','130','query',1,'fetch'))
+    dispatch(MyAtions.query('','130',1,'fresh'))
   }
   onFresh = () => {
     const {dispatch,assetList} = this.props;
@@ -29,7 +33,7 @@ class Index extends Component{
     this.setState({
       isfreshing:true
     })
-    dispatch(MyAtions.query('','130','query',assetList.pageIndex,'fetch'))
+    dispatch(MyAtions.query('','130',assetList.pageIndex,'fetch'))
 
     setTimeout(() => {
       this.setState({
@@ -40,16 +44,20 @@ class Index extends Component{
   render(){
     return (
       <div className='page'>
+        {console.log(this.state.showSearchTab)}
+        <FilterPage showSearchTab = {this.state.showSearchTab}/>
         <div>
           <NavBar
             className='NavBar'
             mode="dark"
             leftContent={<span onClick={()=> this.props.history.goBack()}>{'<返回'}</span>}
             >{this.props.location.state?this.props.location.state.text:'资产查询'}</NavBar>
-            <SearchBar
-            placeholder="搜索您所需的资产"
-            onSubmit={(a)=>{this.props.dispatch(MyAtions.query(a,'130','query',1,'query'))}}
-          />
+            <SearchInput
+              filterBtnOnClick = {() => {this.setState({
+                showSearchTab:true
+              })}}
+              searchInputonSubmit={(a)=>{this.props.dispatch(MyAtions.query(a,'130',1,'query'))}}
+            />
         </div>
         <PullToRefresh
           direction="up"

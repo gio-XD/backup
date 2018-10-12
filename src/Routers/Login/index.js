@@ -6,7 +6,6 @@ import {wxConfig,wxLogin} from '../../Actions/asyncActions/wxActions'
 import {odooLogin} from '../../Actions/asyncActions/login'
 import './style.css'
 
-
 class Login extends Component{
   constructor(props) {
       super(props)
@@ -14,7 +13,7 @@ class Login extends Component{
       props.dispatch(wxConfig())
       if(window.location.href.split('?')[1])
       props.dispatch(wxLogin(window.location.href.split('?')[1].split('=')[1].split('&')[0]),history);
-      props.dispatch(wxLogin(123,history));
+      // props.dispatch(wxLogin(123,history));
       this.state={
         username:undefined,
         password:undefined
@@ -26,7 +25,6 @@ class Login extends Component{
       this.props.history.replace('/index')
     }
   }
-
 
   render(){
     const handleClick = () => {
@@ -55,7 +53,5 @@ class Login extends Component{
     )
   }
 }
-
-
 
 export default withRouter(connect(state =>{return {loginStatus:state.loginStatus}})(Login));

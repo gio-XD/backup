@@ -1,0 +1,28 @@
+.search-input-container{
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  display:flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.search-input{
+  width: 82%;
+  /* float: left; */
+}
+.filter-btn{
+  width:14%;
+  /* float: left; */
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.filter-btn .filter-btn-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+}
