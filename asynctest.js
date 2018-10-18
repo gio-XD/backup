@@ -3,27 +3,25 @@
   **********async/await
 */
 let sleep = function (time) {
-    return new Promise((resolve,reject) => {
-      setTimeout(function () {
-        console.log('its me');
-        resolve('aaa')
-      }, time);
-    })
-};
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('its me')
+      resolve('aaa')
+    }, time)
+  })
+}
 
 let howLongToSleep = async function () {
-    console.log('start');
-    console.time('a')
-    for(let i= 0;i< 10 ; i ++){
-      await sleep(3000)
-    }
-    console.timeEnd('a')
-    console.log('end');
-};
+  console.log('start')
+  console.time('a')
+  for (let i = 0; i < 10; i++) {
+    await sleep(3000)
+  }
+  console.timeEnd('a')
+  console.log('end')
+}
 
-howLongToSleep();
-
-
+howLongToSleep()
 
 /*
   **************closure

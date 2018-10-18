@@ -1,85 +1,70 @@
-import 'whatwg-fetch'
+import history from '../../history'
+import request from '../../utils/request'
+import { setCookie } from '../../utils/cookie'
 
+const SERVER_PORT = require('../../configs/Api').api
 
-export function wxConfig(){
-
+export function wxConfig () {
   return (dispatch) => {
-            fetch('http://219.228.13.114/wx/getAuth',{
-              method:"post",
-              headers: {
-         　　　　 'Accept': 'application/json',
-         　　　　 'Content-Type': 'application/json',
-       　　　　 },
-              body:JSON.stringify({URL:window.location.href.split('#')[0]}),
-            })
-            .then(function(response) {
-              // console.log(response);
-              return response.json()
-            }).then(function(data) {
-              console.log(data);
-              window.wx.config({
-                // debug: true,
-                appId:data.appId,
-                nonceStr:data.nonceStr,
-                timestamp:data.timestamp,
-                signature:data.signature,
-                jsApiList: [
-                  'scanQRCode'
-                ]
-              })
-              // return
-              })
-            .catch(function(ex) {
-              console.log('Oops,something wrong...', 'WxComfig Failed',ex)
-            })
-    }
+    request(SERVER_PORT + '/wx/getAuth', {
+      method: 'POST',
+      body: { URL: window.location.href.split('#')[0] }
+    })
+      .then(function (data) {
+        console.log('wxConfig', data)
+        window.wx.config({
+          // debug: true,
+          appId: data.appId,
+          nonceStr: data.nonceStr,
+          timestamp: data.timestamp,
+          signature: data.signature,
+          jsApiList: [
+            'scanQRCode'
+          ]
+        })
+        // return
+      })
+      .catch(function (ex) {
+        console.log('Oops,something wrong...', 'WxComfig Failed', ex)
+      })
+  }
 }
 
-
-
-export function wxLogin(code,history){
-    return(dispatch) => {
-      fetch('http://219.228.13.114/wx/getOpenId',{
-        method:"post",
-        headers: {
-   　　　　 'Content-Type': 'application/json',
- 　　　　 },
-        body:JSON.stringify({code})
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data){
-        fetch('http://219.228.13.114/odooApi/mockwxlogin',{
-          method:"post",
-          headers: {
-     　　　　 'Content-Type': 'application/json',
-   　　　　 },
-          body:JSON.stringify({id:data.openid})
+export function wxLogin (code) {
+  console.log('wxLogin')
+  return (dispatch) => {
+    request(SERVER_PORT + '/wx/getOpenId', {
+      method: 'POST',
+      body: { code }
+    })
+      .then(function (data) {
+        request(SERVER_PORT + '/odooApi/wxlogin', {
+          method: 'POST',
+          body: { id: data.openid }
         })
-        .then(function(response){
-          return response.json()
-        })
-        .then(function(response){
-          if(response.result === "success"){
-            dispatch({
-              type:'saveLoginStatus',
-              payload:{status:'success'}
-            })
-          }else {
-            dispatch({
-              type:'saveLoginStatus',
-              payload:{status:'fail',openid:response.openid}
-            })
-          }
-        })
-        .catch(function(ex) {
-          console.error('Oops,something wrong...', ex)
-        })
+          .then(function (response) {
+            console.log('wxlogin response', response)
+            if (response.result === 'success') {
+              setCookie('response', JSON.stringify(response.data))
+              dispatch({
+                type: 'saveLoginStatus',
+                payload: { status: 'success', access: response.data.access }
+              })
+              history.replace('/index')
+            } else {
+              dispatch({
+                type: 'saveLoginStatus',
+                payload: { status: 'fail', openid: response.openid }
+              })
+            }
+          })
+          .catch(function (ex) {
+            console.error('Oops,something wrong...', ex)
+          })
       })
 
-      .catch(function(ex) {
-        console.log('Oops,something wrong...', 'happened at wxLogin',ex)
+      .catch(function (ex) {
+        console.log('Oops,something wrong...', 'happened at wxLogin', ex)
       })
-    }
+  }
 }

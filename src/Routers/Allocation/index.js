@@ -1,7 +1,8 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import { Route,Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {NavBar} from 'antd-mobile';
+import {Icon} from 'antd'
 import Allocation from './Allocation';
 import AllocationDetail from './AllocationDetail'
 import * as MyActions from '../../Actions/asyncActions'
@@ -19,7 +20,10 @@ class Index extends Component{
         <NavBar
           className='NavBar'
           mode="dark"
-          leftContent={<span onClick={()=> this.props.location.pathname === "/assetallocation/list"?this.props.history.push('/index') : this.props.history.goBack()}>{'<返回'}</span>}
+          leftContent={<Fragment>
+                          <Icon type="left" theme="outlined" />
+                          <span onClick={()=> this.props.location.pathname === "/assetallocation/list"?this.props.history.push('/index') : this.props.history.goBack()}>{'返回'}</span>
+                        </Fragment>}
           >{this.props.location.pathname === "/assetallocation/list" ?'调拨入账' : '调拨详情'}</NavBar>
           <Route path='/assetallocation' exact render={()=>(<Redirect to='/assetallocation/list'/>)}/>
           <Route path='/assetallocation/list'  render={()=>(<Allocation {...this.props}/>)}/>

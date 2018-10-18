@@ -1,5 +1,4 @@
 import React , { Component } from 'react'
-import { SearchBar } from 'antd-mobile'
 import { AutoComplete,Input,Icon } from 'antd';
 import './SearchInput.css'
 class SearchInput extends Component {
@@ -11,22 +10,21 @@ class SearchInput extends Component {
   handleSearch = (value) => {
     this.setState({
       dataSource: !value ? [] : [
+        '资产编号：'+value,
         '资产名称：'+value,
         '使用部门：'+value,
+        '资产金额：'+value,
       ],
     });
   }
 
   render () {
-    function onSelect(value) {
-      console.log('onSelect', value);
-    }
     return (
       <div className='search-input-container'>
         <AutoComplete
           className='search-input'
           dataSource={this.state.dataSource}
-          onSelect={onSelect}
+          onSelect={this.props.searchInputonSubmit}
           onSearch={this.handleSearch}
         >
           <Input
@@ -39,7 +37,7 @@ class SearchInput extends Component {
         {/* <SearchBar
           className='search-input'
         placeholder="搜索您所需的资产"
-        onSubmit={this.props.searchInputonSubmit}
+        onSubmit={    .searchInputonSubmit}
         /> */}
         <div className='filter-btn' onClick={this.props.filterBtnOnClick}>
           <img className = 'filter-btn-icon' src = '/images/icons/filter.png'/>

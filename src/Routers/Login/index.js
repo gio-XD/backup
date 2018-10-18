@@ -1,57 +1,56 @@
-import React,{Component} from 'react'
-import {List,InputItem,Button} from 'antd-mobile'
-import {withRouter } from 'react-router'
+import React, { Component } from 'react'
+import { List, InputItem, Button } from 'antd-mobile'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import {wxConfig,wxLogin} from '../../Actions/asyncActions/wxActions'
-import {odooLogin} from '../../Actions/asyncActions/login'
+import { wxConfig, wxLogin } from '../../Actions/asyncActions/wxActions'
+import { odooLogin } from '../../Actions/asyncActions/login'
 import './style.css'
 
-class Login extends Component{
-  constructor(props) {
-      super(props)
-      const history = props.history || null
-      props.dispatch(wxConfig())
-      if(window.location.href.split('?')[1])
-      props.dispatch(wxLogin(window.location.href.split('?')[1].split('=')[1].split('&')[0]),history);
-      // props.dispatch(wxLogin(123,history));
-      this.state={
-        username:undefined,
-        password:undefined
-      }
+class Login extends Component {
+  constructor (props) {
+    super(props)
+    const history = props.history || null
+    props.dispatch(wxConfig())
+    if (window.location.href.split('?')[1]) props.dispatch(wxLogin(window.location.href.split('?')[1].split('=')[1].split('&')[0]), history) // 带code
+    props.dispatch(wxLogin(123, history))
+    this.state = {
+      username: undefined,
+      password: undefined
+    }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.loginStatus.status === 'success') {
-      this.props.history.replace('/index')
+      // this.props.history.replace('/index')
     }
   }
 
-  render(){
+  render () {
     const handleClick = () => {
-      const {username,password} = this.state
+      const { username, password } = this.state
       let openid = this.props.loginStatus.openid || ''
-      this.props.dispatch(odooLogin(username,password,openid))
+      this.props.dispatch(odooLogin(username, password, openid))
     }
-    return(
+    return (
       <div className='loginpage'>
         <div className='login'>
-          <List renderHeader={() => <div className='login' style={{fontSize:'32px',marginTop:'-80px'}}>Log In</div>}>
-              <InputItem
-                defaultValue=""
-                placeholder="请输入用户名"
-                onChange={(a)=>{this.setState({username:a})}}
-              >用户名</InputItem>
-              <InputItem
-                defaultValue=""
-                placeholder="请输入密码"
-                onChange={(a)=>{this.setState({password:a})}}
-              >密码</InputItem>
-              <div className='loginbtn'><Button type='primary' onClick={()=>handleClick()} style={{borderRadius:'23.5px',width:'50%'}}>Log In</Button></div>
-            </List>
+          <List renderHeader={() => <div className='login' style={{ fontSize: '32px', marginTop: '-80px' }}>Log In</div>}>
+            <InputItem
+              defaultValue=""
+              placeholder="请输入用户名"
+              onChange={(a) => { this.setState({ username: a }) }}
+            >用户名</InputItem>
+            <InputItem
+              defaultValue=""
+              placeholder="请输入密码"
+              onChange={(a) => { this.setState({ password: a }) }}
+            >密码</InputItem>
+            <div className='loginbtn'><Button type='primary' onClick={() => handleClick()} style={{ borderRadius: '23.5px', width: '50%' }}>Log In</Button></div>
+          </List>
         </div>
       </div>
     )
   }
 }
 
-export default withRouter(connect(state =>{return {loginStatus:state.loginStatus}})(Login));
+export default withRouter(connect(state => { return { loginStatus: state.loginStatus } })(Login))

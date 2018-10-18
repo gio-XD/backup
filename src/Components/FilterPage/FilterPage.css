@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 999999999999999;
+  z-index: 99;
   overflow-y: scroll;
 }
 
@@ -29,7 +29,7 @@
 .search-page .filter-btn-group {
   position: absolute;
   bottom: 5%;
-  right: 10%;
+  right: 16px;
   width: 60%;
   font-size: 16px;
   display: flex;
@@ -67,13 +67,68 @@
 .certain-category-search-tag-container{
   display: flex;
   flex-wrap: nowrap;
+  justify-content: center;
+  height: 30px;
 }
 .certain-category-search-tag-container div{
   margin-left: 4px;
   margin-right: 4px;
   margin-bottom: 8px;
-  display: flex;
+  flex: 1;
 }
-.certain-category-search-tag-container div .am-tag-text{
+
+.certain-category-search-tag-container span{
+  position: relative;
+  top:10%;
+}
+/* .certain-category-search-tag-container div .am-tag-text{
+  position: absolute;
+  top: 12%;
+  margin-left: 14%;
+} */
+
+.certain-category-search-tag-container .filter-input{
+  background: rgb(245, 245, 245);
+  height: 30px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.certain-category-search-tag-container .am-list-item{
+  height: 30px;
+  min-height: 0px;
+}
+.certain-category-search-tag-container .am-list-item .am-input-control{
+  position: relative;
+  top: 55%;
+  left:-20%;
+}
+
+.certain-category-search-tag-container .am-list-item .am-input-control .fake-input-container .fake-input{
+  font-size: 14px;
+  color: #888;
+}
+
+.am-list-item .am-input-control .fake-input-container .fake-input-placeholder{
+  font-size: 14px;
+    color: #888;
+}
+
+.certain-category-search-tag-container .am-list-line::after{
+  height: 0px !important;
+}
+.certain-category-search-tag .certain-category-search-tag-container .am-tag{
   display: flex;
+  padding-top: 7px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+.certain-category-search-tag .am-tag-normal::before{
+  border-radius: 30px !important;
+}
+.certain-category-search-tag .am-tag-active::before{
+  border-radius: 30px !important;
 }

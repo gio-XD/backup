@@ -1,62 +1,52 @@
-import 'whatwg-fetch'
+import request from '../../utils/request'
+import { setCookie } from '../../utils/cookie'
+import history from '../../history'
 
-export function odooLogin(username,password,openid){
-    return(dispatch) => {
-      // fetch('http://219.228.13.114/odooApi/mocklogin',{
-        fetch('http://localhost/odooApi/mocklogin',{
-        method:"post",
-        headers: {
-   　　　　 'Content-Type': 'application/json',
- 　　　　 },
-        body:JSON.stringify({username,psw:password})
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data){
-        if(data === 'Fail'){
+const SERVER_PORT = require('../../configs/Api').api
+
+export function odooLogin (username, password, openid) {
+  return (dispatch) => {
+    request(SERVER_PORT + '/odooApi/mocklogin', {
+      // fetch('http://localhost/odooApi/login',{
+      method: 'POST',
+      body: { username, psw: password }
+    })
+      .then(function (data) { // api token wrong 数据流
+        if (data === 'Fail') {
           alert('用户名或密码错误')
           dispatch({
-            type:'saveLoginStatus',
-            payload:{status:'fail',openid:openid}
+            type: 'saveLoginStatus',
+            payload: { status: 'fail', openid: openid }
           })
-
-          return Promise.reject();
-
-        }else {
+          return Promise.reject()
+        } else {
           dispatch({
-            type:'saveLoginStatus',
-            payload:{status:'success',openid:openid}
+            type: 'saveLoginStatus',
+            payload: { status: 'success', openid: openid }
           })
+          history.replace('/index')
           return data
         }
       })
-      .then(function(data){
-
-        fetch('http://localhost/odooApi/mockregist',{
-          method:"post",
-          headers: {
-     　　　　 'Content-Type': 'application/json',
-   　　　　 },
-          body:JSON.stringify({openid:openid,uid:data.uid})
+      .then(function (data) {
+        // 219.228.13.114
+        request(SERVER_PORT + '/odooApi/regist', {
+          method: 'POST',
+          body: { openid: openid, uid: data.uid }
         })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(response){
-          if(response==='Fail'){
-            console.log('regist fail');
-          }else {
-            console.log('regist success');
-          }
-        })
-        .catch(function(ex) {
-          console.log('Oops,something wrong...', ex)
-        })
-
+          .then(function (response) {
+            if (response === 'Fail') {
+              console.log('regist fail')
+            } else {
+              console.log('regist success')
+            }
+          })
+          .catch(function (ex) {
+            console.log('Oops,something wrong...', ex)
+          })
       })
-      .catch(function(ex) {
+      .catch(function (ex) {
         console.log('Oops,something wrong...', ex)
       })
-    }
+  }
 }

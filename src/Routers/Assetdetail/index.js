@@ -1,42 +1,32 @@
-import React, { Component } from 'react';
-import {NavBar,WhiteSpace,WingBlank} from 'antd-mobile';
-import Card from '../../Components/Assetlist/Card.js';
-import DetailTabs from '../../Components/Detailtabs';
-import { StickyContainer, Sticky } from 'react-sticky';
+import React, { Component } from 'react'
+import { NavBar } from 'antd-mobile'
+import { connect } from 'react-redux'
+import Card from '../../Components/Assetlist/Card.js'
+import DetailTabs from '../../Components/Detailtabs'
+import * as MyActions from '../../Actions/asyncActions'
 import './style.css'
 
-const Stickyitem = (props)=>{
-  return(
-    <Sticky>
-    {({ style }) => <div style={style}>
-      <NavBar
-        className='NavBar'
-        mode="dark"
-        leftContent={<span onClick={()=> props.history.goBack()}>{'<返回'}</span>}
-        >{props.location.state?props.location.state.text:'资产详情'}</NavBar>
-        <WhiteSpace/>
-        <WingBlank size='md'><Card noWhiteBlank={true} data={props.location.state.data}/></WingBlank>
-    </div>}
-  </Sticky>
+class Index extends Component {
+  constructor (props) {
+    super(props)
+    console.log(props.location.pathname)
+    props.dispatch(MyActions.query('', '130', 1, 'fetchDetail', props.location.pathname.split('/')[1]))
+  }
+  render () {
+    console.log(this.props.data)
+    return (
+      <div className='page'>
+        <NavBar
+          className='NavBar'
+          mode="dark"
+          leftContent={<span onClick={() => this.props.history.goBack()}>{'<返回'}</span>}
+        >资产详情</NavBar>
+        <Card data={this.props.data}/>
+        <DetailTabs data={this.props.data}/>
 
-  )
-}
-
-class Index extends Component{
-  render(){
-    return(
-        <div className='page'>
-          <StickyContainer>
-              {Stickyitem(this.props)}
-            <WingBlank size='md'>
-              <WhiteSpace/>
-              <DetailTabs data={this.props.location.state.data}/>
-            </WingBlank>
-          </StickyContainer>
-        </div>
+      </div>
     )
   }
 }
 
-
-export default Index;
+export default connect(state => { return { data: state.assetList.assetDetail } })(Index)

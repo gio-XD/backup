@@ -1,6 +1,7 @@
 import { Route,Redirect,withRouter } from 'react-router';
 import {NavBar,Steps} from 'antd-mobile'
-import React,{Component} from 'react';
+import React,{Component, Fragment} from 'react';
+import {Icon} from 'antd'
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -36,10 +37,12 @@ class Assetcreate extends Component{
           <NavBar
             className='NavBar'
             mode="dark"
-            leftContent={<div>
-                            <span onClick={()=> this.props.history.push('/index')}>{'<返回'}</span>
+            leftContent={<Fragment>
+                            <Icon type="left" theme="outlined" />
+                            <span onClick={()=> this.props.history.goBack()}>{'返回'}</span>
                             {this.props.location.pathname === '/assetcreate/step2' ? <span style={{marginLeft:'8px'}} onClick={()=> this.props.history.goBack()}>上一步</span> : null }
-                        </div>}
+                          </Fragment>}
+
             ><div style={{color:'#fff'}}>资产新增</div></NavBar>
             <div style={{marginTop:'16px'}}>
               <Steps direction="horizontal" size='small' current={currentStep(this.props.location.pathname)}>

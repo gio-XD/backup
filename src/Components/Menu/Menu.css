@@ -1,6 +1,6 @@
 
 
-.验收查询  , .资产新增  , .资产调拨    , .设备申请  , .资产变更  , .预算查询  , .合同查询{
+.验收查询  , .资产新增  , .资产调拨    , .设备申请  , .资产变更  , .预算查询  , .合同查询, .资产处置 , .公告消息{
   height: 35px;
   width: 42px
 }
@@ -17,4 +17,8 @@
   height: 33px;
   position: relative;
   top: 2px;
+}
+
+.NavBar .am-navbar am-navbar-dark{
+  background-color: #1990F1
 }

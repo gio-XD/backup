@@ -4,27 +4,56 @@ import Menu from '../../Components/Menu/Menu';
 import Mine from '../../Components/Mine';
 import { connect } from 'react-redux';
 import Audit from '../../Components/Audit';
+import {Modal} from 'antd-mobile'
 import { HashRouter as Router } from "react-router-dom";
 import {handleTabChange} from '../../Actions/asyncActions/global'
+import { getCookie } from '../../utils/cookie'
 import QueueAnim from 'rc-queue-anim'
 // import { Switch, Route } from 'react-router'
 
 
 class Index extends Component {
-  state={
-    selectedTab:'menu',
-    badge:5,
-    dot:true
-
+  constructor (props){
+    super(props)
+    if (getCookie('response').length === 0) props.history.replace('/login')
+    this.state = {
+      // selectedTab:'menu',
+      badge:5,
+      dot:true,
+      modalIsShow:true,
+      height:document.documentElement.clientHeight - 400
+    }
   }
   selectedTab = (tab) => {
   this.props.dispatch(handleTabChange(this.props.selectedTab,tab,'index'))
   }
+  onModalClose = () => {
+    // this.setState({
+    //   modalIsShow:false
+    // })
+    this.props.dispatch({
+      type:'save',
+      payload:{
+        modalIsShow:false
+      }
+    })
+
+  }
   render() {
-    const {selectedTab} = this.props;
+    const {selectedTab,modalIsShow} = this.props
+    const { badge, dot, height} = this.state
     return(
       <div  style={{ position: 'fixed', height: '100%', width: '100%', top: 0,background:'white'} }>
-
+        <Modal
+          visible={modalIsShow}
+          transparent
+          onClose={this.onModalClose}
+          title="通知"
+        >
+          <div style={{ height: height, overflow: 'scroll' }}>
+            通知通知通知通知<br />
+          </div>
+        </Modal>
         <TabBar
           tabBarPosition = 'bottom'
           tintColor="#33A3F4"
@@ -45,10 +74,10 @@ class Index extends Component {
              onPress={()=>{this.selectedTab('menu')}}
              selected={selectedTab ==='menu'}
              >
-              <Menu/>
+              <Menu access={this.props.access}/>
              </TabBar.Item>
              <TabBar.Item
-              badge={this.state.badge}
+              badge={badge}
               title='我发起的' key = 'mine'
               icon = {<div style={{
                      width: '22px',
@@ -73,7 +102,7 @@ class Index extends Component {
               </div>
               </TabBar.Item>
               <TabBar.Item
-               dot={this.state.dot}
+               dot={dot}
                title='待我审核' key = 'audit'
                icon = {<div style={{
                       width: '22px',
@@ -130,4 +159,4 @@ class Index extends Component {
 }
 
 
-export default connect(state => {return {selectedTab:state.global.index.tabIndex}})(Index)
+export default connect(state => {return {selectedTab:state.global.index.tabIndex,modalIsShow:state.global.modalIsShow, access:state.loginStatus.access}})(Index)

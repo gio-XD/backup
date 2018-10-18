@@ -1,10 +1,10 @@
-export function saveTabIndex (state = {},{type,payload}){
-  if(type === 'saveTabIndex'){
+export function save (state = {}, { type, payload }) {
+  switch (type) {
+  case 'save':
     return {
       ...state,
       ...payload
     }
-  }else {
-    return state
+  default:return state
   }
 }
